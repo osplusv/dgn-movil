@@ -2,18 +2,15 @@ package com.oracle.dgnmovil.app;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.oracle.dgnmovil.tabs.FavoritesTabFragment;
 
@@ -54,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
                         .setTabListener(tabListener));
 
         actionBar.addTab(actionBar.newTab()
-                .setText("Relevantes")
+                .setText("Reportados")
                 .setTabListener(tabListener));
 
         viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -63,6 +60,13 @@ public class MainActivity extends ActionBarActivity {
                 getActionBar().setSelectedNavigationItem(position);
             }
         });
+
+        actionBar.setDisplayShowHomeEnabled(false);
+
+        int titleId = getResources().getIdentifier("action_bar_title", "id", "android");
+        TextView titleTextView = (TextView) findViewById(titleId);
+        titleTextView.setTextColor(Color.WHITE);
+        titleTextView.setTypeface(Typeface.createFromAsset(getAssets(), "font/MavenPro-Bold.ttf"));
 
         /*if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -109,55 +113,6 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public int getCount() {
             return TABS.length;
-        }
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setHasOptionsMenu(true);
-        }
-
-        @Override
-        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-            inflater.inflate(R.menu.placeholderfragment, menu);
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-
-            if (id == R.id.action_refresh) {
-                updateNormas();
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
-
-        private void updateNormas() {
-            FetchFilesTask fetchTask = new FetchFilesTask(getActivity());
-            fetchTask.execute();
-        }
-
-        @Override
-        public void onStart() {
-            super.onStart();
-            //updateNormas();
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
         }
     }
 }
