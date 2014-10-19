@@ -1,6 +1,7 @@
 package com.oracle.dgnmovil.app;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -163,6 +164,13 @@ public class SearchActivity extends ActionBarActivity {
                 TextView normaTitle = (TextView) normaItem.findViewById(R.id.reporte_comentario);
                 normaTitle.setText(norma.getTitulo());
                 normaTitle.setTypeface(tf);
+
+                normaItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(SearchActivity.this, NormActivity.class));
+                    }
+                });
 
                 normsRoot.addView(normaItem);
             }

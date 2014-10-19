@@ -1,0 +1,288 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.oracle.dgnmovil.app.NormActivity"
+    android:background="#FFFFFF">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/norm_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NOM-001-CONAGUA-2011"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/dgn_sub_bcg"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:id="@+id/norm_organism"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CCNN DEL SECTOR AGUA (CONAGUA)"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/dgn_sub_bcg"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:id="@+id/norm_title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="SISTEMAS DE AGUA POTABLE, TOMA DOMICILIARIA Y ALCANTARILLADO SANITARIO-HERMETICIDAD-ESPECIFICACIONES Y MÉTODOS DE PRUEBA."
+                android:gravity="center_horizontal"
+                android:textSize="20dp"
+                android:textColor="@color/dgn_title"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/img_dgn_bg">
+
+            <Button
+                android:id="@+id/norm_icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/ic_dgn_ico01"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"/>
+
+            <Button
+                android:id="@+id/norm_favorite"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/ic_dgn_like"
+                android:layout_toLeftOf="@+id/norm_file"
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"/>
+
+            <Button
+                android:id="@id/norm_file"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/ic_dgn_pdf"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/norm_publication_banner"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Publicación"
+                    android:textSize="15dp"
+                    android:textColor="@color/dgn_sub_bcg"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+                    <TextView
+                        android:id="@+id/norm_relase_banner"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Entrada en vigor"
+                        android:textSize="15dp"
+                        android:textColor="@color/dgn_sub_bcg"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"/>
+                </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/norm_publication"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="2012-02-17T00:00:00Z"
+                    android:textColor="@color/dgn_title"
+                    android:textSize="20dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="20dp"/>
+
+
+                <TextView
+                    android:id="@+id/norm_release"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="2012-06-16T00:00:00Z"
+                    android:textColor="@color/dgn_title"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="20dp"/>
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/norm_international_banner"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Internacional"
+                    android:textSize="15dp"
+                    android:textColor="@color/dgn_sub_bcg"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+                <TextView
+                    android:id="@+id/norm_concordance_banner"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Concordancia"
+                    android:textSize="15dp"
+                    android:textColor="@color/dgn_sub_bcg"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/norm_international"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="ESTA NORMA OFICIAL MEXICANA NO COINCIDE CON NINGUNA NORMA INTERNACIONAL"
+                    android:textColor="@color/dgn_title"
+                    android:textSize="20dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="20dp"/>
+
+                <TextView
+                    android:id="@+id/norm_concordance"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="NO APLICA"
+                    android:textColor="@color/dgn_title"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="20dp"/>
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/norm_product_banner"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Producto"
+                    android:textSize="15dp"
+                    android:textColor="@color/dgn_sub_bcg"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+                <TextView
+                    android:id="@+id/norm_rae_banner"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Actividad Económica"
+                    android:textSize="15dp"
+                    android:textColor="@color/dgn_sub_bcg"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/norm_product"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Agua"
+                    android:textColor="@color/dgn_title"
+                    android:textSize="20dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="60dp"/>
+
+
+                <TextView
+                    android:id="@+id/norm_rae"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="AGUA Y SUMINISTRO DE GAS POR DUCTOS"
+                    android:textColor="@color/dgn_title"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="60dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@id/report_btn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/ic_dgn_report" />
+
+    <Button
+        android:id="@id/contact_btn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/ic_dgn_contact" />
+
+</RelativeLayout>
