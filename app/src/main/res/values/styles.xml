@@ -1,8 +1,10 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="DGNActionBarTheme" parent="@style/Theme.AppCompat.Light">
+        <item name="android:actionBarStyle">@style/DGNActionBar</item>
     </style>
 
+    <style name="DGNActionBar" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">@color/dgn_green</item>
+        <item name="backgroundStacked">@android:color/white</item>
+    </style>
 </resources>
