@@ -193,7 +193,7 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
 
         /* Artificial Intelligence */
 
-        String query = "select distinct r.id, r.nombre from rae r INNER JOIN normas n ON n.rae_id = r.id WHERE n.titulo like '" + val +"'";
+        String query = "select distinct r.id, r.nombre from rae r INNER JOIN normas n ON n.rae_id = r.id WHERE n.titulo like '" + val +"' LIMIT 10";
         Cursor cursor = db.rawQuery(query, null);
 
         while (cursor.moveToNext()) {
@@ -206,9 +206,9 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
 
         cursor.close();
         /****************************/
-        max = lRae.size() >= 10 ? 0 : max - lRae.size();
 
-        if (max > 0) {
+        if (lRae.size() < 10) {
+            max = max - lRae.size();
             Cursor cursor2 = db.query(
                     true,
                     RaeEntry.TABLE_NAME,
