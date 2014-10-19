@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -70,6 +71,17 @@ public class NormActivity extends ActionBarActivity {
         product.setTypeface(tf);
         raeBanner.setTypeface(tf);
         rae.setTypeface(tf);
+
+        Button favoriteButton = (Button) findViewById(R.id.norm_favorite);
+        Button fileButton = (Button) findViewById(R.id.norm_file);
+
+        fileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                startActivity(browserIntent);
+            }
+        });
     }
 
 
