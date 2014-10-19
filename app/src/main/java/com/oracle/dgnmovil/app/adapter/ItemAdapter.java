@@ -39,9 +39,6 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         TextView item_titulo = (TextView) convertView.findViewById(R.id.item_titulo);
         item_titulo.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "font/MavenPro-Bold.ttf"));
 
-        TextView item_fecha = (TextView) convertView.findViewById(R.id.item_fecha);
-        item_fecha.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "font/MavenPro-Bold.ttf"));
-
         return convertView;
     }
 }
