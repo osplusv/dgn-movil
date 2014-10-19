@@ -10,10 +10,59 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            android:id="@+id/searchLinear"
+            android:id="@+id/search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:id="@+id/header_products"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PRODUCTOS"
+                android:padding="15dp"
+                android:background="@color/dgn_sub_bcg"
+                android:textSize="12dp"
+                android:textColor="@color/dgn_body"/>
+            <LinearLayout
+                android:id="@+id/linear_products"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+            <TextView
+                android:id="@+id/header_raes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ACTIVIDADES ECONÓMICAS"
+                android:padding="15dp"
+                android:background="@color/dgn_sub_bcg"
+                android:textSize="12dp"
+                android:textColor="@color/dgn_body"/>
+            <LinearLayout
+                android:id="@+id/linear_raes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+            <TextView
+                android:id="@+id/header_norms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NORMAS"
+                android:padding="15dp"
+                android:background="@color/dgn_sub_bcg"
+                android:textSize="12dp"
+                android:textColor="@color/dgn_body"/>
+            <LinearLayout
+                android:id="@+id/linear_norms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </LinearLayout>
     </ScrollView>
 
 </RelativeLayout>

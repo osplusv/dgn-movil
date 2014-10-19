@@ -2,6 +2,7 @@
 <resources>
     <item name="dgn_green" type="color">#00c853</item>
     <item name="dgn_green_dark" type="color">#00ac47</item>
-    <color name="primary">#009688</color>
-    <color name="primary_pressed">#26a69a</color>
+    <item name="dgn_title" type="color">#555555</item>
+    <item name="dgn_body" type="color">#999999</item>
+    <item name="dgn_sub_bcg" type="color">#f2f2f2</item>
 </resources>
