@@ -16,6 +16,8 @@ import com.oracle.dgnmovil.app.model.Favorito;
 import com.oracle.dgnmovil.util.DbUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,7 +46,9 @@ public class FavoritesTabFragment extends Fragment {
         mListView.setEmptyView(emptyText);
         mListView.setAdapter(adapter);
 
-        adapter.addAll(loadFavorites());
+        List<Favorito> l = loadFavorites();
+        Collections.reverse(l);
+        adapter.addAll(l);
 
         return rootView;
     }
