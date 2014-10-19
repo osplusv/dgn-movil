@@ -46,6 +46,16 @@ public class NormActivity extends ActionBarActivity {
             }
         });
 
+        Button contact = (Button) findViewById(R.id.contact_btn);
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + "36336892"));
+                startActivity(callIntent);
+            }
+        });
+
         TextView code = (TextView) findViewById(R.id.norm_code);
         TextView organism = (TextView) findViewById(R.id.norm_organism);
         TextView title = (TextView) findViewById(R.id.norm_title);
