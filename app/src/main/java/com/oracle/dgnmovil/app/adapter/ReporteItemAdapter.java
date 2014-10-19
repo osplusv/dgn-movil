@@ -15,14 +15,14 @@ import android.widget.TextView;
 import com.oracle.dgnmovil.app.R;
 import com.oracle.dgnmovil.app.model.Reporte;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by osvaldo on 10/19/14.
  */
 public class ReporteItemAdapter extends ArrayAdapter<Reporte> {
 
-    public ReporteItemAdapter(Context context, List<Reporte> reportes) {
+    public ReporteItemAdapter(Context context, ArrayList<Reporte> reportes) {
         super(context, 0, reportes);
     }
 

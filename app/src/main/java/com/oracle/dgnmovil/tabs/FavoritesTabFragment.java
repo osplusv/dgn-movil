@@ -7,12 +7,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.oracle.dgnmovil.app.R;
+import com.oracle.dgnmovil.app.adapter.FavoritoAdapter;
+import com.oracle.dgnmovil.app.model.Favorito;
+import com.oracle.dgnmovil.util.DbUtil;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  *
  */
 public class FavoritesTabFragment extends Fragment {
+    private ListView mListView;
+
     public FavoritesTabFragment() {
     }
 
@@ -23,6 +34,27 @@ public class FavoritesTabFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = inflater.inflate(R.layout.fragment_favorites_tab, container, false);
+
+        ArrayList<Favorito> favoritos = new ArrayList<Favorito>();
+        final FavoritoAdapter adapter = new FavoritoAdapter(getActivity(), favoritos);
+
+        mListView = (ListView) rootView.findViewById(android.R.id.list);
+        TextView emptyText = (TextView) rootView.findViewById(android.R.id.empty);
+        mListView.setEmptyView(emptyText);
+        mListView.setAdapter(adapter);
+
+        adapter.addAll(loadFavorites());
+
+        return rootView;
+    }
+
+    public ArrayList<Favorito> loadFavorites() {
+        DbUtil dbUtil = new DbUtil(getActivity());
+
+        // Just for testing
+        // dbUtil.setNormaPreference(1, 0);
+
+        return dbUtil.getFavorites();
     }
 }
