@@ -39,12 +39,12 @@ public class FavoritoAdapter extends ArrayAdapter<Favorito> {
         TextView fav_titulo = (TextView) convertView.findViewById(R.id.item_titulo);
         fav_titulo.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "font/MavenPro-Bold.ttf"));
 
-        TextView fav_fecha = (TextView) convertView.findViewById(R.id.item_fecha);
-        fav_fecha.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "font/MavenPro-Bold.ttf"));
+        /*TextView fav_fecha = (TextView) convertView.findViewById(R.id.item_fecha);
+        fav_fecha.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "font/MavenPro-Bold.ttf"));*/
 
         fav_clave.setText(favorito.getClave());
         fav_titulo.setText(favorito.getTitulo());
-        fav_fecha.setText(favorito.getFecha());
+        // fav_fecha.setText(favorito.getFecha());
 
         return convertView;
     }
