@@ -15,8 +15,10 @@ import com.oracle.dgnmovil.app.model.Rae;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by osvaldo on 10/18/14.
@@ -41,11 +43,13 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
 
     @Override
     protected Map<String, List<Object>> doInBackground(String... query) {
+
         mMap = new HashMap<String, List<Object>>();
         String val = "%" + query[0] + "%";
         searchByNorma(val);
         searchByProducto(val);
         searchByRae(val);
+        //possiblesRae(val);
         return mMap;
     }
 
@@ -183,42 +187,101 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
     }
 
     private void searchByRae(String val) {
+        int max = 10;
+        Set<String> uRae = new HashSet<String>();
         List<Object> lRae = new ArrayList<Object>();
 
-        Cursor cursor = db.query(
-                true,
-                RaeEntry.TABLE_NAME,
-                null,
-                RaeEntry.COLUMN_NOM + " LIKE ? LIMIT 10",
-                new String[] { val },
-                null,
-                null,
-                null,
-                null
-        );
+        /* Artificial Intelligence */
+
+        String query = "select distinct r.id, r.nombre from rae r INNER JOIN normas n ON n.rae_id = r.id WHERE n.titulo like '" + val +"'";
+        Cursor cursor = db.rawQuery(query, null);
 
         while (cursor.moveToNext()) {
-            Rae r = new Rae();
+            int nombreIndex = cursor.getColumnIndex(DgnContract.RaeEntry.COLUMN_NOM);
+            int idIndex = cursor.getColumnIndex(RaeEntry._ID);
 
-            int raeIndex = cursor.getColumnIndex(RaeEntry._ID);
-            long rae_id = cursor.getLong(raeIndex);
+            lRae.add(new Rae(cursor.getLong(idIndex), cursor.getString(nombreIndex)));
+            uRae.add(cursor.getString(nombreIndex));
+        }
 
-            int nombreIndex = cursor.getColumnIndex(RaeEntry.COLUMN_NOM);
-            String nombre = cursor.getString(nombreIndex);
-            r.setNombre(nombre);
-            r.setImg(nombre);
+        cursor.close();
+        /****************************/
+        max = lRae.size() >= 10 ? 0 : max - lRae.size();
+
+        if (max > 0) {
+            Cursor cursor2 = db.query(
+                    true,
+                    RaeEntry.TABLE_NAME,
+                    null,
+                    RaeEntry.COLUMN_NOM + " LIKE ? LIMIT " + max,
+                    new String[] { val },
+                    null,
+                    null,
+                    null,
+                    null
+            );
+
+            while (cursor2.moveToNext()) {
+                Rae r = new Rae();
+
+                int raeIndex = cursor2.getColumnIndex(RaeEntry._ID);
+                long rae_id = cursor2.getLong(raeIndex);
+
+                int nombreIndex = cursor2.getColumnIndex(RaeEntry.COLUMN_NOM);
+                String nombre = cursor2.getString(nombreIndex);
+
+                if (uRae.add(nombre)) {
+                    r.setNombre(nombre);
+                    r.setImg(nombre);
+
+                    lRae.add(r);
+                }
+            }
+            cursor2.close();
+        }
+
+
+        int size = lRae.size();
+        for (int i = 0; i < size; i++) {
+            Rae r = (Rae)lRae.get(i);
 
             long num = DatabaseUtils.queryNumEntries(
                     db,
                     NormasEntry.TABLE_NAME,
                     NormasEntry.COLUMN_RAE_KEY + " = ?",
-                    new String[] { Long.toString(rae_id) }
+                    new String[] { Long.toString(r.getId()) }
             );
 
             r.setNumNormas(num);
-            lRae.add(r);
         }
+
         mMap.put(RAE, lRae);
-        cursor.close();
     }
+
+    /*
+    public void possiblesRae(String val) {
+        boolean f = false;
+        List<Object> prod = mMap.get(PRODUCTO);
+        String query = "select distinct r.nombre from rae r INNER JOIN normas n ON n.rae_id = r.id WHERE n.titulo like '" + val + "'";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        while (cursor.moveToNext()) {
+            int nombreIndex = cursor.getColumnIndex(RaeEntry.COLUMN_NOM);
+            String nombre = cursor.getString(nombreIndex);
+
+            for (int i = 0; i < prod.size(); i++) {
+                if (((Producto) prod.get(i)).getNombre() == nombre) {
+                    f = true;
+                    break;
+                }
+            }
+            if (!f) {
+                prod.add(new Producto(nombre));
+            }
+        }
+        cursor.close();
+        mMap.put(PRODUCTO, prod);
+    }
+    */
 }

@@ -10,6 +10,12 @@ public class Producto {
     private long numNormas;
     private List<String> img;
 
+    public Producto() {}
+
+    public Producto(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getNombre() {
         return nombre;
     }
