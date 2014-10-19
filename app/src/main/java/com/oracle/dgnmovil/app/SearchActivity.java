@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -29,9 +27,18 @@ import java.util.Map;
 
 public class SearchActivity extends ActionBarActivity {
 
+    Typeface tf;
+
     LinearLayout root;
     ProgressBar progressBar;
-    Typeface tf;
+    TextView productosHeader;
+    TextView raesHeader;
+    TextView normasHeader;
+    LinearLayout productsRoot;
+    LinearLayout raesRoot;
+    LinearLayout normsRoot;
+
+    long millis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,104 +54,112 @@ public class SearchActivity extends ActionBarActivity {
         titleTextView.setTextColor(Color.WHITE);
         titleTextView.setTypeface(Typeface.createFromAsset(getAssets(), "font/MavenPro-Bold.ttf"));
 
-        root = (LinearLayout) findViewById(R.id.searchLinear);
+        root = (LinearLayout) findViewById(R.id.search);
 
-        progressBar = new ProgressBar(this);
-        LinearLayout.LayoutParams pblp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        pblp.gravity = Gravity.CENTER;
-        progressBar.setLayoutParams(pblp);
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.INVISIBLE);
-        root.addView(progressBar);
+        productosHeader = (TextView) findViewById(R.id.header_products);
+        raesHeader = (TextView) findViewById(R.id.header_raes);
+        normasHeader = (TextView) findViewById(R.id.header_norms);
+
+        productosHeader.setTypeface(tf);
+        raesHeader.setTypeface(tf);
+        normasHeader.setTypeface(tf);
+
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+
+        productsRoot = (LinearLayout) findViewById(R.id.linear_products);
+        raesRoot = (LinearLayout) findViewById(R.id.linear_raes);
+        normsRoot = (LinearLayout) findViewById(R.id.linear_norms);
+
+        root.removeAllViews();
 
         tf = Typeface.createFromAsset(getAssets(), "font/MavenPro-Bold.ttf");
     }
 
     private void displayResults(Map<String, List<Object>> result) {
+        root.removeAllViews();
+
         LayoutInflater li = getLayoutInflater();
 
-        if(result.containsKey(FetchSearchTask.PRODUCTO)) {
-            List<Object> productos = result.get(FetchSearchTask.PRODUCTO);
+        List<Object> productos = result.get(FetchSearchTask.PRODUCTO);
 
-            if(productos.size() > 0) {
-                TextView header = new TextView(this);
-                header.setText("Productos");
-                root.addView(header);
+        if (productos.size() > 0) {
+            root.addView(productosHeader);
+            root.addView(productsRoot);
+            for (Object obj : productos) {
+                Producto producto = (Producto) obj;
 
-                for (Object obj : productos) {
-                    Producto producto = (Producto) obj;
+                LinearLayout productoItem = (LinearLayout) li.inflate(R.layout.search_product, productsRoot, false);
 
-                    RelativeLayout productoItem = (RelativeLayout) li.inflate(R.layout.search_product, null);
+                int imagesLength = producto.getImg().size();
 
-                    TextView productoName = (TextView) productoItem.findViewById(R.id.search_product);
-                    productoName.setText(producto.getNombre());
-                    productoName.setTypeface(tf);
-
-                    TextView productoNorms = (TextView) productoItem.findViewById(R.id.search_product_norms);
-                    productoNorms.setText("" + producto.getNumNormas());
-                    productoNorms.setTypeface(tf);
-
-                    root.addView(productoItem);
+                LinearLayout productoImgs = (LinearLayout) productoItem.findViewById(R.id.search_producto_imgs);
+                for(int i = 0; i < imagesLength && i < 4; i++) {
+                    ImageView productoImg = new ImageView(this);
+                    productoImg.setImageResource(R.drawable.icon_xxxhdpi);
+                    productoImg.setPadding(0, 0, 20, 0);
+                    productoImg.setLayoutParams(new ActionBar.LayoutParams(70, 70));
+                    productoImgs.addView(productoImg);
                 }
+
+                TextView productoName = (TextView) productoItem.findViewById(R.id.search_producto);
+                productoName.setText(producto.getNombre());
+                productoName.setTypeface(tf);
+
+                TextView productoNorms = (TextView) productoItem.findViewById(R.id.search_producto_norms);
+                productoNorms.setText(producto.getNumNormas() + " noms");
+                productoNorms.setTypeface(tf);
+
+                productsRoot.addView(productoItem);
             }
         }
 
-        if(result.containsKey(FetchSearchTask.PRODUCTO)) {
-            List<Object> raes = result.get(FetchSearchTask.RAE);
+        List<Object> raes = result.get(FetchSearchTask.RAE);
 
-            progressBar.setVisibility(View.INVISIBLE);
+        if (raes.size() > 0) {
+            root.addView(raesHeader);
+            root.addView(raesRoot);
+            for (Object obj : raes) {
+                Rae rae = (Rae) obj;
 
-            if(raes.size() > 0) {
-                TextView header = new TextView(this);
-                header.setText("Actividades Económicas");
-                root.addView(header);
+                LinearLayout raeItem = (LinearLayout) li.inflate(R.layout.search_rae, raesRoot, false);
 
-                for (Object obj : raes) {
-                    Rae rae = (Rae) obj;
+                ImageView raeImg = (ImageView) raeItem.findViewById(R.id.search_rae_img);
+                raeImg.setImageResource(R.drawable.icon_xxxhdpi);
 
-                    RelativeLayout raeItem = (RelativeLayout) li.inflate(R.layout.search_rae, null);
+                TextView raeName = (TextView) raeItem.findViewById(R.id.search_rae);
+                raeName.setText(rae.getNombre());
+                raeName.setTypeface(tf);
 
-                    TextView raeName = (TextView) raeItem.findViewById(R.id.search_rae);
-                    raeName.setText(rae.getNombre());
-                    raeName.setTypeface(tf);
+                TextView raeNorms = (TextView) raeItem.findViewById(R.id.search_rae_norms);
+                raeNorms.setText(rae.getNumNormas() + " noms");
+                raeNorms.setTypeface(tf);
 
-                    TextView raeNorms = (TextView) raeItem.findViewById(R.id.search_rae_norms);
-                    raeNorms.setText("" + rae.getNumNormas());
-                    raeNorms.setTypeface(tf);
-
-                    root.addView(raeItem);
-                }
+                raesRoot.addView(raeItem);
             }
         }
 
-        if(result.containsKey(FetchSearchTask.NORMA)) {
-            List<Object> normas = result.get(FetchSearchTask.NORMA);
+        List<Object> normas = result.get(FetchSearchTask.NORMA);
 
-            if(normas.size() > 0) {
-                TextView header = new TextView(this);
-                header.setText("Normas");
-                root.addView(header);
+        if (normas.size() > 0) {
+            root.addView(normasHeader);
+            root.addView(normsRoot);
+            for (Object obj : normas) {
+                Norma norma = (Norma) obj;
 
-                for (Object obj : normas) {
-                    Norma norma = (Norma) obj;
+                LinearLayout normaItem = (LinearLayout) li.inflate(R.layout.search_norm, normsRoot, false);
 
-                    RelativeLayout normaItem = (RelativeLayout) li.inflate(R.layout.search_norm, null);
+                ImageView normaImg = (ImageView) normaItem.findViewById(R.id.search_norma_img);
+                normaImg.setImageResource(R.drawable.icon_xxxhdpi);
 
-                    TextView normaName = (TextView) normaItem.findViewById(R.id.search_norma);
-                    normaName.setText(norma.getClave());
-                    normaName.setTypeface(tf);
+                TextView normaName = (TextView) normaItem.findViewById(R.id.search_norma);
+                normaName.setText(norma.getClave());
+                normaName.setTypeface(tf);
 
-                    TextView normaDate = (TextView) normaItem.findViewById(R.id.search_norma_date);
-                    normaDate.setText(norma.getFecha());
-                    normaDate.setTypeface(tf);
+                TextView normaTitle = (TextView) normaItem.findViewById(R.id.search_norma_title);
+                normaTitle.setText(norma.getTitulo());
+                normaTitle.setTypeface(tf);
 
-                    TextView normaTitle = (TextView) normaItem.findViewById(R.id.search_norma_title);
-                    normaTitle.setText(norma.getTitulo());
-                    normaTitle.setTypeface(tf);
-
-                    root.addView(normaItem);
-                }
+                normsRoot.addView(normaItem);
             }
         }
     }
@@ -178,14 +193,36 @@ public class SearchActivity extends ActionBarActivity {
         ImageView closeButton = (ImageView) searchView.findViewById(closeId);
         closeButton.setImageResource(R.drawable.ic_dgn_cancel);
 
-        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                String query = "" + searchView.getQuery();
-                if (!b && !query.isEmpty()) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    new SearchTask().execute(query);
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(final String query) {
+                final long currMillis = System.currentTimeMillis();
+
+                if(!query.isEmpty()) {
+                    new android.os.Handler().postDelayed(
+                            new Runnable() {
+                                public void run() {
+                                    if (currMillis >= millis){
+                                        root.removeAllViews();
+                                        productsRoot.removeAllViews();
+                                        raesRoot.removeAllViews();
+                                        normsRoot.removeAllViews();
+                                        root.addView(progressBar);
+                                        new SearchTask().execute(query);
+                                    }
+                                }
+                            },
+                            300);
+
+                    millis = currMillis;
                 }
+
+                return false;
             }
         });
 
