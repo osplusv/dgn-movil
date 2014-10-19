@@ -13,12 +13,22 @@
 
     <Button
         android:id="@+id/report_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/ic_dgn_report" />
+
+    <Button
+        android:id="@+id/contact_btn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="15dp"
-        android:layout_marginRight="15dp"
-        android:text="Bitches" />
+        android:layout_marginRight="20dp"
+        android:background="@drawable/ic_dgn_contact" />
 
 </RelativeLayout>

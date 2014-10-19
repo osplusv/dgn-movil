@@ -1,5 +1,6 @@
 package com.oracle.dgnmovil.app;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -38,6 +39,9 @@ public class ReportActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_report);
 
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+
         int titleId = getResources().getIdentifier("action_bar_title", "id", "android");
         TextView titleTextView = (TextView) findViewById(titleId);
         titleTextView.setTextColor(Color.WHITE);
@@ -51,6 +55,12 @@ public class ReportActivity extends ActionBarActivity {
 
         TextView fotografia = (TextView) findViewById(R.id.fotografia);
         fotografia.setTypeface(Typeface.createFromAsset(getAssets(), "font/MavenPro-Bold.ttf"));
+
+        Button submitBtn = (Button) findViewById(R.id.send_report);
+        submitBtn.setTypeface(Typeface.createFromAsset(getAssets(), "font/MavenPro-Bold.ttf"));
+
+        Button photoBtn = (Button) findViewById(R.id.button_camera);
+        photoBtn.setTypeface(Typeface.createFromAsset(getAssets(), "font/MavenPro-Bold.ttf"));
 
         Button button_camera = (Button) findViewById(R.id.button_camera);
         photo = (ImageView) findViewById(R.id.image_photo);
@@ -75,7 +85,7 @@ public class ReportActivity extends ActionBarActivity {
 
                 post.put("producto", producto);
 
-                EditText ubicacion_text = (EditText) findViewById(R.id.ubicacion_textbox);
+                EditText ubicacion_text = (EditText) findViewById(R.id.empresa_textbox);
                 String ubicacion = ubicacion_text.getText().toString();
 
                 post.put("ubicacion", ubicacion);

@@ -72,9 +72,10 @@ public class SearchActivity extends ActionBarActivity {
         normsRoot = (LinearLayout) findViewById(R.id.linear_norms);
         empty = (ImageView) findViewById(R.id.search_empty);
 
-        root.removeAllViews();
-
-        root.addView(empty);
+        if(savedInstanceState == null) {
+            root.removeAllViews();
+            root.addView(empty);
+        }
 
         tf = Typeface.createFromAsset(getAssets(), "font/MavenPro-Bold.ttf");
     }
