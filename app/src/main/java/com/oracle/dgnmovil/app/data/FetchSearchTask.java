@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.oracle.dgnmovil.app.data.DgnContract.NormasEntry;
 import com.oracle.dgnmovil.app.data.DgnContract.ProductosEntry;
@@ -136,7 +135,7 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
                 int imgIndex = c2.getColumnIndex(DgnContract.ProdRaeEntry.COLUMN_IMG);
                 String img = c2.getString(imgIndex);
                 imgs.add(img);
-                Log.v(LOG_TAG, img);
+                // Log.v(LOG_TAG, img);
             }
             c2.close();
             p.setImg(imgs);
@@ -148,7 +147,7 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
             );
             p.setNumNormas(num);
             lProducto.add(p);
-            Log.v(LOG_TAG, num + "");
+            // Log.v(LOG_TAG, num + "");
         }
         mMap.put(PRODUCTO, lProducto);
         cursor.close();
