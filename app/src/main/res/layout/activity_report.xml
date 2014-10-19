@@ -1,104 +1,91 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
+    android:orientation="vertical"
     android:padding="20dp"
     tools:context="com.applicate.dgn.ReportActivity" >
 
+
+    <TextView
+        android:id="@+id/informacion"
+        android:text="INFORMACIÓN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:layout_marginBottom="5dp"/>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/producto_textbox"
+        android:hint="Producto"
+        android:layout_marginBottom="5dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/empresa_textbox"
+        android:hint="Empresa"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/comentarios"
+         android:text="COMENTARIOS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:layout_marginBottom="5dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/comentarios_textbox"
+        android:layout_weight="1"
+        android:layout_marginBottom="20dp"
+        android:gravity="top"
+        android:hint="Escribe tus comentarios"/>
+
+    <TextView
+        android:id="@+id/fotografia"
+        android:text="FOTOGRAFIA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:layout_marginBottom="5dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/informacion"
-            android:text="INFORMACIÓN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:layout_marginBottom="5dp"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:layout_marginBottom="15dp">
 
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/producto_textbox"
-            android:hint="Producto"
-            android:layout_marginBottom="5dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/empresa_textbox"
-            android:hint="Empresa"
-            android:layout_marginBottom="20dp"/>
-
-        <TextView
-            android:id="@+id/comentarios"
-             android:text="COMENTARIOS"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:layout_marginBottom="5dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/comentarios_textbox"
-            android:layout_weight="1"
-            android:layout_marginBottom="20dp"
-            android:gravity="top"
-            android:hint="Escribe tus comentarios"/>
-
-        <TextView
-            android:id="@+id/fotografia"
-            android:text="FOTOGRAFIA"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:layout_marginBottom="5dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="bottom"
-            android:layout_marginBottom="15dp">
-
-            <ImageView
-                android:id="@+id/image_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/button_camera"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/button_camera"
-                android:gravity="center"
-                android:textColor="@android:color/white"
-                android:background="@drawable/im_dgn_button_photo_"/>
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/image_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/send_report"
-            android:layout_width="match_parent"
+            android:id="@+id/button_camera"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="ENVIAR"
+            android:layout_weight="1"
+            android:text="@string/button_camera"
+            android:gravity="center"
             android:textColor="@android:color/white"
-            android:background="@drawable/im_dgn_button"/>
+            android:background="@drawable/im_dgn_button_photo_"/>
+
     </LinearLayout>
 
     <Button
-        android:id="@+id/contact_btn"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/ic_dgn_contact" />
+        android:id="@+id/send_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ENVIAR"
+        android:textColor="@android:color/white"
+        android:background="@drawable/im_dgn_button"/>
 
-</RelativeLayout>
+</LinearLayout>
