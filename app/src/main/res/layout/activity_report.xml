@@ -7,6 +7,7 @@
     android:padding="20dp"
     tools:context="com.applicate.dgn.ReportActivity" >
 
+
     <TextView
         android:id="@+id/informacion"
         android:text="INFORMACIÓN"
@@ -36,7 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15dp"
-        android:hint="Escribe tus comentarios"
         android:layout_marginBottom="5dp"/>
 
     <EditText
@@ -45,7 +45,8 @@
         android:id="@+id/comentarios_textbox"
         android:layout_weight="1"
         android:layout_marginBottom="20dp"
-        android:gravity="top"/>
+        android:gravity="top"
+        android:hint="Escribe tus comentarios"/>
 
     <TextView
         android:id="@+id/fotografia"
@@ -59,19 +60,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="bottom"
         android:layout_marginBottom="15dp">
-
-        <Button
-            android:id="@+id/button_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/button_camera"
-            android:gravity="center_vertical"/>
 
         <ImageView
             android:id="@+id/image_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/button_camera"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_camera"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:background="@drawable/im_dgn_button_photo_"/>
 
     </LinearLayout>
 

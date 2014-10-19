@@ -113,4 +113,17 @@ public class Norma {
     public void setFavorito(int favorito) {
         this.favorito = favorito;
     }
+
+    public String[] getStringAttributes() {
+        String attributes[] = new String[10];
+        attributes[0] = getClave();
+        attributes[1] = getTitulo();
+        attributes[2] = getFecha();
+        attributes[3] = getImg();
+        attributes[4] = getPublicacion();
+        attributes[5] = getNorma_internacional();
+        attributes[6] = getConcordancia();
+        attributes[7] = getDocumento();
+        return attributes;
+    }
 }

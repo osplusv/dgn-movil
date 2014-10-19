@@ -71,7 +71,6 @@
                 android:id="@+id/norm_favorite"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/ic_dgn_like"
                 android:layout_toLeftOf="@+id/norm_file"
                 android:layout_marginRight="15dp"
                 android:layout_centerVertical="true"/>

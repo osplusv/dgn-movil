@@ -13,8 +13,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.oracle.dgnmovil.util.DbUtil;
+
 
 public class NormActivity extends ActionBarActivity {
+
+    int favorite;
+    long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +77,49 @@ public class NormActivity extends ActionBarActivity {
         raeBanner.setTypeface(tf);
         rae.setTypeface(tf);
 
-        Button favoriteButton = (Button) findViewById(R.id.norm_favorite);
-        Button fileButton = (Button) findViewById(R.id.norm_file);
+        Intent intent = getIntent();
+        String[] attributes = intent.getStringArrayExtra(SearchActivity.NORMA_ATTRIBUTES);
+        favorite = intent.getIntExtra(SearchActivity.NORMA_FAVORITE, 0);
+        id = intent.getLongExtra(SearchActivity.NORMA_ID, 0);
 
+        code.setText(attributes[0] != null ? attributes[0] : "N/A");
+        title.setText(attributes[1] != null ? attributes[1] : "N/A");
+        release.setText(attributes[2] != null ? attributes[2] : "N/A");
+        publication.setText(attributes[4] != null ? attributes[4] : "N/A");
+        international.setText(attributes[5] != null ? attributes[5] : "N/A");
+        concordance.setText(attributes[6] != null ? attributes[6] : "N/A");
+        final String file = attributes[7];
+
+        final DbUtil dbutil = new DbUtil(this);
+        product.setText(dbutil.getProducto(id));
+        rae.setText(dbutil.getRae(id));
+
+        final Button favoriteButton = (Button) findViewById(R.id.norm_favorite);
+        if(favorite == 0)
+            favoriteButton.setBackgroundResource(R.drawable.ic_dgn_unlike);
+        else
+            favoriteButton.setBackgroundResource(R.drawable.ic_dgn_like);
+
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                favorite = 1 - favorite;
+                if(favorite == 0)
+                    favoriteButton.setBackgroundResource(R.drawable.ic_dgn_unlike);
+                else
+                    favoriteButton.setBackgroundResource(R.drawable.ic_dgn_like);
+                dbutil.setNormaPreference(id, favorite);
+            }
+        });
+
+        Button fileButton = (Button) findViewById(R.id.norm_file);
         fileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-                startActivity(browserIntent);
+                if(!file.equals("NO APLICA")) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(file));
+                    startActivity(browserIntent);
+                }
             }
         });
     }

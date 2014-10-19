@@ -42,6 +42,10 @@ public class SearchActivity extends ActionBarActivity {
 
     long millis;
 
+    public static String NORMA_ATTRIBUTES = "norma_attributes";
+    public static String NORMA_FAVORITE = "norma_favorite";
+    public static String NORMA_ID = "norma_id";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,7 +154,7 @@ public class SearchActivity extends ActionBarActivity {
             root.addView(normasHeader);
             root.addView(normsRoot);
             for (Object obj : normas) {
-                Norma norma = (Norma) obj;
+                final Norma norma = (Norma) obj;
 
                 LinearLayout normaItem = (LinearLayout) li.inflate(R.layout.search_norm, normsRoot, false);
 
@@ -168,7 +172,14 @@ public class SearchActivity extends ActionBarActivity {
                 normaItem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(SearchActivity.this, NormActivity.class));
+                        Intent intent = new Intent(SearchActivity.this, NormActivity.class);
+                        String[] attributes = norma.getStringAttributes();
+                        int favorito = norma.getFavorito();
+                        long id = norma.getId();
+                        intent.putExtra(NORMA_ATTRIBUTES, attributes);
+                        intent.putExtra(NORMA_FAVORITE, favorito);
+                        intent.putExtra(NORMA_ID, id);
+                        startActivity(intent);
                     }
                 });
 
