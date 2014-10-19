@@ -83,17 +83,14 @@ public class ReportActivity extends ActionBarActivity {
 
                 EditText producto_text = (EditText) findViewById(R.id.producto_textbox);
                 String producto = producto_text.getText().toString();
-
                 post.put("producto", producto);
 
-                EditText ubicacion_text = (EditText) findViewById(R.id.empresa_textbox);
-                String ubicacion = ubicacion_text.getText().toString();
-
-                post.put("ubicacion", ubicacion);
+                EditText empresa_text = (EditText) findViewById(R.id.empresa_textbox);
+                String empresa = empresa_text.getText().toString();
+                post.put("empresa", empresa);
 
                 EditText comentario_text = (EditText) findViewById(R.id.comentarios_textbox);
-                String comentarios = ubicacion_text.getText().toString();
-
+                String comentarios = empresa_text.getText().toString();
                 post.put("comentario", comentarios);
 
                 if (mImage != null) {

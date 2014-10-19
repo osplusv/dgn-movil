@@ -5,6 +5,7 @@ package com.oracle.dgnmovil.app.model;
  */
 public class Reporte {
     private String producto;
+    private String empresa;
     private String comentario;
     private String img;
 
@@ -30,5 +31,13 @@ public class Reporte {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
     }
 }

@@ -45,6 +45,7 @@ public class FavoritesTabFragment extends Fragment {
         mListView.setAdapter(adapter);
 
         adapter.addAll(loadFavorites());
+        adapter.notifyDataSetChanged();
 
         return rootView;
     }

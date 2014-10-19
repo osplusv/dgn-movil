@@ -54,10 +54,12 @@ public class ReportTabFragment extends Fragment {
                 Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
                 Reporte r = new Reporte();
                 r.setProducto((String) newPost.get("producto"));
+                r.setEmpresa((String) newPost.get("empresa"));
                 r.setComentario((String) newPost.get("comentario"));
                 r.setImg((String) newPost.get("imagen"));
 
                 adapter.add(r);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
