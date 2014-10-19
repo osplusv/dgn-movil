@@ -4,8 +4,8 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +36,40 @@ public class NormActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
+
+        Typeface tf = Typeface.createFromAsset(getAssets(), "font/MavenPro-Bold.ttf");
+
+        TextView code = (TextView) findViewById(R.id.norm_code);
+        TextView organism = (TextView) findViewById(R.id.norm_organism);
+        TextView title = (TextView) findViewById(R.id.norm_title);
+        TextView publicationBanner = (TextView) findViewById(R.id.norm_publication_banner);
+        TextView publication = (TextView) findViewById(R.id.norm_publication);
+        TextView releaseBanner = (TextView) findViewById(R.id.norm_relase_banner);
+        TextView release = (TextView) findViewById(R.id.norm_release);
+        TextView internationalBanner = (TextView) findViewById(R.id.norm_international_banner);
+        TextView international = (TextView) findViewById(R.id.norm_international);
+        TextView concordanceBanner = (TextView) findViewById(R.id.norm_concordance_banner);
+        TextView concordance = (TextView) findViewById(R.id.norm_concordance);
+        TextView productBanner = (TextView) findViewById(R.id.norm_product_banner);
+        TextView product = (TextView) findViewById(R.id.norm_product);
+        TextView raeBanner = (TextView) findViewById(R.id.norm_rae_banner);
+        TextView rae = (TextView) findViewById(R.id.norm_rae);
+
+        code.setTypeface(tf);
+        organism.setTypeface(tf);
+        title.setTypeface(tf);
+        publicationBanner.setTypeface(tf);
+        publication.setTypeface(tf);
+        releaseBanner.setTypeface(tf);
+        release.setTypeface(tf);
+        internationalBanner.setTypeface(tf);
+        international.setTypeface(tf);
+        concordanceBanner.setTypeface(tf);
+        concordance.setTypeface(tf);
+        productBanner.setTypeface(tf);
+        product.setTypeface(tf);
+        raeBanner.setTypeface(tf);
+        rae.setTypeface(tf);
     }
 
 
