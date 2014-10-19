@@ -65,7 +65,7 @@ public class DbUtil {
 
             int publicacionIndex = cursor.getColumnIndex(DgnContract.NormasEntry.COLUMN_PUB);
             String publicacion = cursor.getString(publicacionIndex);
-            fav.setFecha(publicacion);
+            fav.setPublicacion(publicacion);
 
             int raeIndex = cursor.getColumnIndex(DgnContract.NormasEntry.COLUMN_RAE_KEY);
             long rae_id = cursor.getInt(raeIndex);
@@ -84,6 +84,12 @@ public class DbUtil {
             }
             c2.close();
             favoritos.add(fav);
+
+            fav.setActiva(cursor.getString(cursor.getColumnIndex(DgnContract.NormasEntry.COLUMN_ACT)));
+            fav.setDocumento(cursor.getString(cursor.getColumnIndex(DgnContract.NormasEntry.COLUMN_DOC)));
+            fav.setNorma_internacional(cursor.getString(cursor.getColumnIndex(DgnContract.NormasEntry.COLUMN_INTER)));
+            fav.setConcordancia(cursor.getString(cursor.getColumnIndex(DgnContract.NormasEntry.COLUMN_CONC)));
+            fav.setFavorito(cursor.getInt(cursor.getColumnIndex(DgnContract.NormasEntry.COLUMN_FAV)));
         }
         return favoritos;
     }

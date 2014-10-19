@@ -1,6 +1,7 @@
 package com.oracle.dgnmovil.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.oracle.dgnmovil.app.NormActivity;
 import com.oracle.dgnmovil.app.R;
+import com.oracle.dgnmovil.app.SearchActivity;
 import com.oracle.dgnmovil.app.model.Favorito;
 
 import java.util.ArrayList;
@@ -19,13 +22,16 @@ import java.util.ArrayList;
  */
 public class FavoritoAdapter extends ArrayAdapter<Favorito> {
 
+    Context context;
+
     public FavoritoAdapter(Context context, ArrayList<Favorito> favoritos) {
         super(context, 0, favoritos);
+        this.context = context;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Favorito favorito = getItem(position);
+        final Favorito favorito = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_favoritos, parent, false);
@@ -45,6 +51,20 @@ public class FavoritoAdapter extends ArrayAdapter<Favorito> {
         fav_clave.setText(favorito.getClave());
         fav_titulo.setText(favorito.getTitulo());
         // fav_fecha.setText(favorito.getFecha());
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, NormActivity.class);
+                String[] attributes = favorito.getStringAttributes();
+                int fav = favorito.getFavorito();
+                long id =favorito.getId();
+                intent.putExtra(SearchActivity.NORMA_ATTRIBUTES, attributes);
+                intent.putExtra(SearchActivity.NORMA_FAVORITE, fav);
+                intent.putExtra(SearchActivity.NORMA_ID, id);
+                context.startActivity(intent);
+            }
+        });
 
         return convertView;
     }

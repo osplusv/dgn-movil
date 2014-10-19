@@ -26,13 +26,15 @@ public class NormActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_norm);
 
+        Typeface tf = Typeface.createFromAsset(getAssets(), "font/MavenPro-Regular.ttf");
+
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
 
         int titleId = getResources().getIdentifier("action_bar_title", "id", "android");
         TextView titleTextView = (TextView) findViewById(titleId);
         titleTextView.setTextColor(Color.WHITE);
-        titleTextView.setTypeface(Typeface.createFromAsset(getAssets(), "font/MavenPro-Bold.ttf"));
+        titleTextView.setTypeface(tf);
 
         Button report = (Button) findViewById(R.id.report_btn);
         report.setOnClickListener(new View.OnClickListener() {
@@ -42,8 +44,6 @@ public class NormActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
-
-        Typeface tf = Typeface.createFromAsset(getAssets(), "font/MavenPro-Bold.ttf");
 
         TextView code = (TextView) findViewById(R.id.norm_code);
         TextView organism = (TextView) findViewById(R.id.norm_organism);
@@ -113,15 +113,17 @@ public class NormActivity extends ActionBarActivity {
         });
 
         Button fileButton = (Button) findViewById(R.id.norm_file);
-        fileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!file.equals("NO APLICA")) {
+        if(!file.equals("NO APLICA")) {
+            fileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(file));
                     startActivity(browserIntent);
                 }
-            }
-        });
+            });
+        }
+        else
+            fileButton.setVisibility(View.INVISIBLE);
     }
 
 
