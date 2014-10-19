@@ -23,14 +23,14 @@ import java.util.Map;
  * Created by osvaldo on 10/18/14.
  *
  */
-public class FetchSearchTask extends AsyncTask<String, Void, String>  {
+public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Object>>>  {
 
     private final String LOG_TAG = FetchSearchTask.class.getSimpleName();
     private Context mContext;
     private Map<String, List<Object>> mMap;
-    private final String NORMA = "norma";
-    private final String PRODUCTO = "producto";
-    private final String RAE = "rae";
+    public static final String NORMA = "norma";
+    public static final String PRODUCTO = "producto";
+    public static final String RAE = "rae";
     SQLiteDatabase db;
     DgnDbHelper dbHelper;
 
@@ -41,13 +41,13 @@ public class FetchSearchTask extends AsyncTask<String, Void, String>  {
     }
 
     @Override
-    protected String doInBackground(String... query) {
+    protected Map<String, List<Object>> doInBackground(String... query) {
         mMap = new HashMap<String, List<Object>>();
         String val = "%" + query[0] + "%";
         searchByNorma(val);
         searchByProducto(val);
         searchByRae(val);
-        return null;
+        return mMap;
     }
 
     private void searchByNorma(String val) {

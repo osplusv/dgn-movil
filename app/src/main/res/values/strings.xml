@@ -9,5 +9,6 @@
     <string name="title_activity_report">ReportActivity</string>
     <string name="search_hint">Búsqueda</string>
     <string name="button_camera">Imagen</string>
+    <string name="action_search">Buscar</string>
 
 </resources>

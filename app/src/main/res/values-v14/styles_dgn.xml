@@ -23,6 +23,7 @@
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Dgn</item>
         <item name="android:actionBarStyle">@style/ActionBar.Solid.Dgn</item>
         <item name="android:actionBarTabBarStyle">@style/ActionBarTabBarStyle.Dgn</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_dgn_back</item>
     </style>
 
     <style name="ActionBar.Solid.Dgn" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
