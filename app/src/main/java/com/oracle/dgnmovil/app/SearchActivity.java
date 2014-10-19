@@ -223,7 +223,7 @@ public class SearchActivity extends ActionBarActivity {
                                     }
                                 }
                         },
-                        300);
+                        400);
 
                 millis = currMillis;
 
