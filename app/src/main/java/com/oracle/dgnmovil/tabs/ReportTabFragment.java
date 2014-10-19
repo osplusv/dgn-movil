@@ -25,7 +25,7 @@ import java.util.Map;
  * Created by osvaldo on 10/19/14.
  */
 public class ReportTabFragment extends Fragment {
-    private final int LIMIT = 15;
+    private final int LIMIT = 40;
     private ListView mListView;
 
     @Override
