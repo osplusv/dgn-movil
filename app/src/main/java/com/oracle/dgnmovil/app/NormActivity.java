@@ -13,8 +13,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.oracle.dgnmovil.util.DbUtil;
+
 
 public class NormActivity extends ActionBarActivity {
+
+    int favorite;
+    long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,15 +77,49 @@ public class NormActivity extends ActionBarActivity {
         raeBanner.setTypeface(tf);
         rae.setTypeface(tf);
 
-        Button favoriteButton = (Button) findViewById(R.id.norm_favorite);
+        Intent intent = getIntent();
+        String[] attributes = intent.getStringArrayExtra(SearchActivity.NORMA_ATTRIBUTES);
+        favorite = intent.getIntExtra(SearchActivity.NORMA_FAVORITE, 0);
+        id = intent.getLongExtra(SearchActivity.NORMA_ID, 0);
+
+        code.setText(attributes[0]);
+        title.setText(attributes[1]);
+        release.setText(attributes[2]);
+        publication.setText(attributes[4]);
+        international.setText(attributes[5]);
+        concordance.setText(attributes[6]);
+        final String file = attributes[7];
+
+        final DbUtil dbutil = new DbUtil(this);
+        product.setText(dbutil.getProducto(id));
+        rae.setText(dbutil.getRae(id));
+
+        final Button favoriteButton = (Button) findViewById(R.id.norm_favorite);
+        if(favorite == 0)
+            favoriteButton.setBackgroundResource(R.drawable.ic_dgn_unlike);
+        else
+            favoriteButton.setBackgroundResource(R.drawable.ic_dgn_like);
+
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                favorite = 1 - favorite;
+                if(favorite == 0)
+                    favoriteButton.setBackgroundResource(R.drawable.ic_dgn_unlike);
+                else
+                    favoriteButton.setBackgroundResource(R.drawable.ic_dgn_like);
+                dbutil.setNormaPreference(id, favorite);
+            }
+        });
 
         Button fileButton = (Button) findViewById(R.id.norm_file);
         fileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://www.economia-noms.gob.mx/normas/noms/2010/001conagua2012.pdf"));
-                startActivity(browserIntent);
+                if(!file.equals("NO APLICA")) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(file));
+                    startActivity(browserIntent);
+                }
             }
         });
     }
