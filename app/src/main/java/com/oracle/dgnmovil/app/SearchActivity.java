@@ -100,12 +100,17 @@ public class SearchActivity extends ActionBarActivity {
 
                 LinearLayout productoItem = (LinearLayout) li.inflate(R.layout.search_product, productsRoot, false);
 
-                int imagesLength = producto.getImg().size();
+                List<String> imgs = producto.getImg();
 
                 LinearLayout productoImgs = (LinearLayout) productoItem.findViewById(R.id.search_producto_imgs);
-                for(int i = 0; i < imagesLength && i < 4; i++) {
+                for(int i = 0; i < imgs.size() && i < 4; i++) {
                     ImageView productoImg = new ImageView(this);
-                    productoImg.setImageResource(R.drawable.icon_xxxhdpi);
+                    String name = imgs.get(i).toLowerCase().replaceAll(" ", "_").replaceAll(",", "");
+                    int resID = getResources().getIdentifier(name, "drawable",  getPackageName());
+                    if(resID == 0)
+                        resID = R.drawable.ic_dgn_ico00;
+                    productoImg.setImageResource(resID);
+
                     productoImg.setPadding(0, 0, 20, 0);
                     productoImg.setLayoutParams(new ActionBar.LayoutParams(70, 70));
                     productoImgs.addView(productoImg);
@@ -134,7 +139,11 @@ public class SearchActivity extends ActionBarActivity {
                 LinearLayout raeItem = (LinearLayout) li.inflate(R.layout.search_rae, raesRoot, false);
 
                 ImageView raeImg = (ImageView) raeItem.findViewById(R.id.search_rae_img);
-                raeImg.setImageResource(R.drawable.icon_xxxhdpi);
+                String name = rae.getImg().toLowerCase().replaceAll(" ", "_").replaceAll(",", "");
+                int resID = getResources().getIdentifier(name, "drawable",  getPackageName());
+                if(resID == 0)
+                    resID = R.drawable.ic_dgn_ico00;
+                raeImg.setImageResource(resID);
 
                 TextView raeName = (TextView) raeItem.findViewById(R.id.search_rae);
                 raeName.setText(rae.getNombre());
@@ -159,7 +168,11 @@ public class SearchActivity extends ActionBarActivity {
                 LinearLayout normaItem = (LinearLayout) li.inflate(R.layout.search_norm, normsRoot, false);
 
                 ImageView normaImg = (ImageView) normaItem.findViewById(R.id.reporte_producto_img);
-                normaImg.setImageResource(R.drawable.icon_xxxhdpi);
+                String name = norma.getImg().toLowerCase().replaceAll(" ", "_").replaceAll(",", "");
+                int resID = getResources().getIdentifier(name, "drawable",  getPackageName());
+                if(resID == 0)
+                    resID = R.drawable.ic_dgn_ico00;
+                normaImg.setImageResource(resID);
 
                 TextView normaName = (TextView) normaItem.findViewById(R.id.reporte_producto);
                 normaName.setText(norma.getClave());
