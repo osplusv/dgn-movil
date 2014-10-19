@@ -97,7 +97,16 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new FavoritesTabFragment();
+            switch (position) {
+                case 0: {
+                    return FavoritesTabFragment.newInstance(1);
+                }
+
+                case 1: {
+                    return FavoritesTabFragment.newInstance(2);
+                }
+            }
+            return null;
         }
 
         @Override

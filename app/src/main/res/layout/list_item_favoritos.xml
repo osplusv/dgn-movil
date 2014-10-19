@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="100dp">
+
+    <ImageView
+        android:id="@+id/placeholder"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:paddingRight="15dp"
+        android:src="@drawable/icon_xxxhdpi"/>
+
+    <TextView
+        android:id="@+id/item_clave"
+        android:text="NOM-003-STPS-1999"
+        android:layout_toRightOf="@id/placeholder"
+        android:layout_centerVertical="true"
+        android:textSize="22dp"
+        android:paddingBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/item_titulo"
+        android:text="Este es el titulo de la norma este es el titulo de la norma este."
+        android:layout_toRightOf="@id/placeholder"
+        android:layout_below="@id/placeholder"
+        android:textSize="15dp"
+        android:textColor="@android:color/secondary_text_light_nodisable"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/item_fecha"
+        android:text="10/2014"
+        android:layout_toRightOf="@id/item_clave"
+        android:textSize="12dp"
+        android:textColor="@android:color/secondary_text_light_nodisable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"/>
+
+</RelativeLayout>
+
