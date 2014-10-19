@@ -58,7 +58,7 @@ public class ReportTabFragment extends Fragment {
                 r.setComentario((String) newPost.get("comentario"));
                 r.setImg((String) newPost.get("imagen"));
 
-                adapter.add(r);
+                adapter.insert(r, 0);
                 adapter.notifyDataSetChanged();
             }
 
