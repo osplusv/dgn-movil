@@ -59,11 +59,10 @@
             android:layout_height="wrap_content"
             android:background="@drawable/img_dgn_bg">
 
-            <Button
+            <ImageView
                 android:id="@+id/norm_icon"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:background="@drawable/ic_dgn_ico01"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"/>
 

@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oracle.dgnmovil.util.DbUtil;
@@ -89,6 +90,13 @@ public class NormActivity extends ActionBarActivity {
         international.setText(attributes[5] != null ? attributes[5] : "N/A");
         concordance.setText(attributes[6] != null ? attributes[6] : "N/A");
         final String file = attributes[7];
+
+        ImageView icon = (ImageView) findViewById(R.id.norm_icon);
+        String name = attributes[3].toLowerCase().replaceAll(" ", "_").replaceAll(",", "").replace("-", "");
+        int resID = getResources().getIdentifier(name, "drawable",  getPackageName());
+        if(resID == 0)
+            resID = R.drawable.ic_dgn_ico00;
+        icon.setImageResource(resID);
 
         final DbUtil dbutil = new DbUtil(this);
         product.setText(dbutil.getProducto(id));

@@ -90,6 +90,7 @@ public class DbUtil {
             fav.setNorma_internacional(cursor.getString(cursor.getColumnIndex(DgnContract.NormasEntry.COLUMN_INTER)));
             fav.setConcordancia(cursor.getString(cursor.getColumnIndex(DgnContract.NormasEntry.COLUMN_CONC)));
             fav.setFavorito(cursor.getInt(cursor.getColumnIndex(DgnContract.NormasEntry.COLUMN_FAV)));
+            fav.setId(cursor.getInt(cursor.getColumnIndex(DgnContract.NormasEntry._ID)));
         }
         return favoritos;
     }
