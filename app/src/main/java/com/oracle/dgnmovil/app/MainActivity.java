@@ -13,9 +13,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
 import com.oracle.dgnmovil.tabs.FavoritesTabFragment;
+import com.oracle.dgnmovil.tabs.ReportTabFragment;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -25,6 +29,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Firebase.setAndroidContext(this);
 
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -70,6 +76,15 @@ public class MainActivity extends ActionBarActivity {
         TextView titleTextView = (TextView) findViewById(titleId);
         titleTextView.setTextColor(Color.WHITE);
         titleTextView.setTypeface(Typeface.createFromAsset(getAssets(), "font/MavenPro-Bold.ttf"));
+
+        Button report = (Button) findViewById(R.id.report_btn);
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -99,11 +114,11 @@ public class MainActivity extends ActionBarActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: {
-                    return FavoritesTabFragment.newInstance(1);
+                    return new FavoritesTabFragment();
                 }
 
                 case 1: {
-                    return FavoritesTabFragment.newInstance(2);
+                    return new ReportTabFragment();
                 }
             }
             return null;

@@ -10,5 +10,9 @@
     <string name="search_hint">Búsqueda</string>
     <string name="button_camera">Imagen</string>
     <string name="action_search">Buscar</string>
+    <string name="informacion">INFORMACION</string>
+    <string name="comentarios">COMENTARIOS</string>
+    <string name="fotografia">FOTOGRAFIA</string>
+    <string name="enviar">Enviar</string>
 
 </resources>
