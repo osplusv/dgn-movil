@@ -82,12 +82,12 @@ public class NormActivity extends ActionBarActivity {
         favorite = intent.getIntExtra(SearchActivity.NORMA_FAVORITE, 0);
         id = intent.getLongExtra(SearchActivity.NORMA_ID, 0);
 
-        code.setText(attributes[0]);
-        title.setText(attributes[1]);
-        release.setText(attributes[2]);
-        publication.setText(attributes[4]);
-        international.setText(attributes[5]);
-        concordance.setText(attributes[6]);
+        code.setText(attributes[0] != null ? attributes[0] : "N/A");
+        title.setText(attributes[1] != null ? attributes[1] : "N/A");
+        release.setText(attributes[2] != null ? attributes[2] : "N/A");
+        publication.setText(attributes[4] != null ? attributes[4] : "N/A");
+        international.setText(attributes[5] != null ? attributes[5] : "N/A");
+        concordance.setText(attributes[6] != null ? attributes[6] : "N/A");
         final String file = attributes[7];
 
         final DbUtil dbutil = new DbUtil(this);
