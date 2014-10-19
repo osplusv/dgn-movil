@@ -114,16 +114,6 @@ public class ReportActivity extends ActionBarActivity {
 
             }
         });
-
-        Button contact = (Button) findViewById(R.id.contact_btn);
-        contact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:" + "36336892"));
-                startActivity(callIntent);
-            }
-        });
     }
 
     @Override
