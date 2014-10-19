@@ -8,7 +8,7 @@
     <string name="title_activity_search">SearchActivity</string>
     <string name="title_activity_report">ReportActivity</string>
     <string name="search_hint">Búsqueda</string>
-    <string name="button_camera">Imagen</string>
+    <string name="button_camera">IMAGEN</string>
     <string name="action_search">Buscar</string>
     <string name="informacion">INFORMACION</string>
     <string name="comentarios">COMENTARIOS</string>

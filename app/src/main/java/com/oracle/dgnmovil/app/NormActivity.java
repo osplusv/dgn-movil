@@ -73,12 +73,13 @@ public class NormActivity extends ActionBarActivity {
         rae.setTypeface(tf);
 
         Button favoriteButton = (Button) findViewById(R.id.norm_favorite);
-        Button fileButton = (Button) findViewById(R.id.norm_file);
 
+        Button fileButton = (Button) findViewById(R.id.norm_file);
         fileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://www.economia-noms.gob.mx/normas/noms/2010/001conagua2012.pdf"));
                 startActivity(browserIntent);
             }
         });

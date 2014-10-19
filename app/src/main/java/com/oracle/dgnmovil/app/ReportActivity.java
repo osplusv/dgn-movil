@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.utilities.Base64;
@@ -100,9 +102,28 @@ public class ReportActivity extends ActionBarActivity {
                 }
 
                 postRef.push().setValue(post);
+
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "Tu reporte has sido guardado", Toast.LENGTH_LONG).show();
+                                finish();
+                            }
+                        },
+                        1000);
+
             }
         });
 
+        Button contact = (Button) findViewById(R.id.contact_btn);
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + "36336892"));
+                startActivity(callIntent);
+            }
+        });
     }
 
     @Override
