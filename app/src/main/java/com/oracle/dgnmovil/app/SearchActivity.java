@@ -105,7 +105,7 @@ public class SearchActivity extends ActionBarActivity {
                 LinearLayout productoImgs = (LinearLayout) productoItem.findViewById(R.id.search_producto_imgs);
                 for(int i = 0; i < imgs.size() && i < 4; i++) {
                     ImageView productoImg = new ImageView(this);
-                    String name = imgs.get(i).toLowerCase().replaceAll(" ", "_").replaceAll(",", "");
+                    String name = imgs.get(i).toLowerCase().replaceAll(" ", "_").replaceAll(",", "").replace("-", "");
                     int resID = getResources().getIdentifier(name, "drawable",  getPackageName());
                     if(resID == 0)
                         resID = R.drawable.ic_dgn_ico00;
@@ -139,7 +139,7 @@ public class SearchActivity extends ActionBarActivity {
                 LinearLayout raeItem = (LinearLayout) li.inflate(R.layout.search_rae, raesRoot, false);
 
                 ImageView raeImg = (ImageView) raeItem.findViewById(R.id.search_rae_img);
-                String name = rae.getNombre().toLowerCase().replaceAll(" ", "_").replaceAll(",", "");
+                String name = rae.getNombre().toLowerCase().replaceAll(" ", "_").replaceAll(",", "").replace("-", "");
                 int resID = getResources().getIdentifier(name, "drawable",  getPackageName());
                 if(resID == 0)
                     resID = R.drawable.ic_dgn_ico00;
@@ -168,7 +168,7 @@ public class SearchActivity extends ActionBarActivity {
                 LinearLayout normaItem = (LinearLayout) li.inflate(R.layout.search_norm, normsRoot, false);
 
                 ImageView normaImg = (ImageView) normaItem.findViewById(R.id.reporte_producto_img);
-                String name = norma.getImg().toLowerCase().replaceAll(" ", "_").replaceAll(",", "");
+                String name = norma.getImg().toLowerCase().replaceAll(" ", "_").replaceAll(",", "").replace("-", "");
                 int resID = getResources().getIdentifier(name, "drawable",  getPackageName());
                 if(resID == 0)
                     resID = R.drawable.ic_dgn_ico00;

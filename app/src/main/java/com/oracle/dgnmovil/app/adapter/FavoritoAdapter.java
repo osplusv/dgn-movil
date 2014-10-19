@@ -38,6 +38,11 @@ public class FavoritoAdapter extends ArrayAdapter<Favorito> {
         }
 
         ImageView image = (ImageView) convertView.findViewById(R.id.placeholder);
+        String name = favorito.getImg().toLowerCase().replaceAll(" ", "_").replaceAll(",", "").replace("-", "");
+        int resID = context.getResources().getIdentifier(name, "drawable",  context.getPackageName());
+        if(resID == 0)
+            resID = R.drawable.ic_dgn_ico00;
+        image.setImageResource(resID);
 
         TextView fav_clave = (TextView) convertView.findViewById(R.id.item_clave);
         fav_clave.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "font/MavenPro-Bold.ttf"));
