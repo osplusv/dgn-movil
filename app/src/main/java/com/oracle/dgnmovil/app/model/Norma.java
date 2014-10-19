@@ -5,10 +5,18 @@ package com.oracle.dgnmovil.app.model;
  */
 public class Norma {
 
+    private long id;
     private String clave;
     private String titulo;
     private String fecha;
     private String img;
+    private String publicacion;
+    private String activa;
+    private String tipo;
+    private String norma_internacional;
+    private String concordancia;
+    private String documento;
+    private int favorito;
 
     public String getClave() {
         return clave;
@@ -40,5 +48,69 @@ public class Norma {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getPublicacion() {
+        return publicacion;
+    }
+
+    public void setPublicacion(String publicacion) {
+        this.publicacion = publicacion;
+    }
+
+    public String getActiva() {
+        return activa;
+    }
+
+    public void setActiva(String activa) {
+        this.activa = activa;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getNorma_internacional() {
+        return norma_internacional;
+    }
+
+    public void setNorma_internacional(String norma_internacional) {
+        this.norma_internacional = norma_internacional;
+    }
+
+    public String getConcordancia() {
+        return concordancia;
+    }
+
+    public void setConcordancia(String concordancia) {
+        this.concordancia = concordancia;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+
+    public int getFavorito() {
+        return favorito;
+    }
+
+    public void setFavorito(int favorito) {
+        this.favorito = favorito;
     }
 }

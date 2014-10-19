@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/reporte_producto_img"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_gravity="center_vertical"
         android:layout_marginRight="15dp"/>
 

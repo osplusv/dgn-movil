@@ -154,14 +154,14 @@ public class SearchActivity extends ActionBarActivity {
 
                 LinearLayout normaItem = (LinearLayout) li.inflate(R.layout.search_norm, normsRoot, false);
 
-                ImageView normaImg = (ImageView) normaItem.findViewById(R.id.search_norma_img);
+                ImageView normaImg = (ImageView) normaItem.findViewById(R.id.reporte_producto_img);
                 normaImg.setImageResource(R.drawable.icon_xxxhdpi);
 
-                TextView normaName = (TextView) normaItem.findViewById(R.id.search_norma);
+                TextView normaName = (TextView) normaItem.findViewById(R.id.reporte_producto);
                 normaName.setText(norma.getClave());
                 normaName.setTypeface(tf);
 
-                TextView normaTitle = (TextView) normaItem.findViewById(R.id.search_norma_title);
+                TextView normaTitle = (TextView) normaItem.findViewById(R.id.reporte_comentario);
                 normaTitle.setText(norma.getTitulo());
                 normaTitle.setTypeface(tf);
 
@@ -215,7 +215,6 @@ public class SearchActivity extends ActionBarActivity {
             @Override
             public boolean onQueryTextChange(final String query) {
                 final long currMillis = System.currentTimeMillis();
-
                 new android.os.Handler().postDelayed(
                         new Runnable() {
                             public void run() {

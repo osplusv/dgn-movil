@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.oracle.dgnmovil.app.data.DgnContract.NormasEntry;
 import com.oracle.dgnmovil.app.data.DgnContract.ProductosEntry;
@@ -57,7 +56,7 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
                 true,
                 NormasEntry.TABLE_NAME,
                 null,
-                NormasEntry.COLUMN_CLAVE + " LIKE ? or " + NormasEntry.COLUMN_TITULO + " LIKE ? LIMIT 7",
+                NormasEntry.COLUMN_CLAVE + " LIKE ? or " + NormasEntry.COLUMN_TITULO + " LIKE ? LIMIT 10",
                 new String[] { val, val },
                 null,
                 null,
@@ -68,6 +67,10 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
         while (cursor.moveToNext()) {
             Norma norma = new Norma();
 
+            int idIndex = cursor.getColumnIndex(NormasEntry._ID);
+            long id = cursor.getLong(idIndex);
+            norma.setId(id);
+
             int claveIndex = cursor.getColumnIndex(NormasEntry.COLUMN_CLAVE);
             String clave = cursor.getString(claveIndex);
             norma.setClave(clave);
@@ -76,12 +79,37 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
             String titulo = cursor.getString(tituloIndex);
             norma.setTitulo(titulo);
 
+            int publicacionIndex = cursor.getColumnIndex(NormasEntry.COLUMN_PUB);
+            String publicacion = cursor.getString(publicacionIndex);
+            norma.setPublicacion(publicacion);
+
             int vigorIndex = cursor.getColumnIndex(NormasEntry.COLUMN_ACT);
             String vigor = cursor.getString(vigorIndex);
             norma.setFecha(vigor);
 
+            int tipoIndex = cursor.getColumnIndex(NormasEntry.COLUMN_TIPO);
+            String tipo = cursor.getString(tipoIndex);
+            norma.setTipo(tipo);
+
+            int norma_internacional_Index = cursor.getColumnIndex(NormasEntry.COLUMN_INTER);
+            String norma_internacional = cursor.getString(norma_internacional_Index);
+            norma.setNorma_internacional(norma_internacional);
+
+            int concordanciaIndex = cursor.getColumnIndex(NormasEntry.COLUMN_CONC);
+            String concordancia = cursor.getString(concordanciaIndex);
+            norma.setConcordancia(concordancia);
+
+            int documentoIndex = cursor.getColumnIndex(NormasEntry.COLUMN_DOC);
+            String documento = cursor.getString(documentoIndex);
+            norma.setDocumento(documento);
+
+            int favoritoIndex = cursor.getColumnIndex(NormasEntry.COLUMN_FAV);
+            int favorito = cursor.getInt(favoritoIndex);
+            norma.setFavorito(favorito);
+
             int raeIndex = cursor.getColumnIndex(NormasEntry.COLUMN_RAE_KEY);
             long rae_id = cursor.getInt(raeIndex);
+
 
             Cursor c2 = mContext.getContentResolver().query(
                     RaeEntry.buildRaeUri((rae_id)),
@@ -108,7 +136,7 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
         Cursor cursor = mContext.getContentResolver().query(
                 ProductosEntry.CONTENT_URI,
                 null,
-                ProductosEntry.COLUMN_NOM + " LIKE ?",
+                ProductosEntry.COLUMN_NOM + " LIKE ? LIMIT 10",
                 new String[] { val },
                 null
         );
@@ -136,7 +164,7 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
                 int imgIndex = c2.getColumnIndex(DgnContract.ProdRaeEntry.COLUMN_IMG);
                 String img = c2.getString(imgIndex);
                 imgs.add(img);
-                Log.v(LOG_TAG, img);
+                // Log.v(LOG_TAG, img);
             }
             c2.close();
             p.setImg(imgs);
@@ -148,7 +176,7 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
             );
             p.setNumNormas(num);
             lProducto.add(p);
-            Log.v(LOG_TAG, num + "");
+            // Log.v(LOG_TAG, num + "");
         }
         mMap.put(PRODUCTO, lProducto);
         cursor.close();
@@ -161,7 +189,7 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
                 true,
                 RaeEntry.TABLE_NAME,
                 null,
-                RaeEntry.COLUMN_NOM + " LIKE ?",
+                RaeEntry.COLUMN_NOM + " LIKE ? LIMIT 10",
                 new String[] { val },
                 null,
                 null,
