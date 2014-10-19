@@ -1,23 +1,21 @@
 package com.oracle.dgnmovil.app;
 
-import android.app.Activity;
-import android.content.Context;
+import android.app.ActionBar;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout.LayoutParams;
+import android.widget.SearchView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
-public class SearchActivity extends Activity {
+public class SearchActivity extends ActionBarActivity {
 
     public static String[] names = {"Agua", "Aguacate", "Aguja", "Abejas", "Abellanas"};
     public static String[] names2 = {"Agricultura", "Agraria", "Amar", "Amono"};
@@ -27,9 +25,18 @@ public class SearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        final EditText search = (EditText) findViewById(R.id.search);
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-        search.postDelayed(new Runnable() {
+        int titleId = getResources().getIdentifier("action_bar_title", "id", "android");
+        TextView titleTextView = (TextView) findViewById(titleId);
+        titleTextView.setTextColor(Color.WHITE);
+        titleTextView.setTypeface(Typeface.createFromAsset(getAssets(), "font/MavenPro-Bold.ttf"));
+
+        /*final EditText search = (EditText) findViewById(R.id.search);
+
+        /*search.postDelayed(new Runnable() {
 
             @Override
             public void run() {
@@ -124,6 +131,54 @@ public class SearchActivity extends Activity {
             @Override
             public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {}
 
-        });
+        });*/
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search, menu);
+
+        final SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setIconifiedByDefault(false);
+        searchView.requestFocus();
+
+        int frameId = searchView.getContext().getResources().getIdentifier("android:id/search_edit_frame", null, null);
+        LinearLayout frameView = (LinearLayout) searchView.findViewById(frameId);
+        frameView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        int hintId = searchView.getContext().getResources().getIdentifier("android:id/search_mag_icon", null, null);
+        ImageView hintView = (ImageView) searchView.findViewById(hintId);
+        hintView.setImageResource(R.drawable.green_dot);
+
+        int plateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+        View textView = searchView.findViewById(plateId);
+        textView.setBackgroundResource(R.drawable.dgn_edit_text_holo_light);
+
+        int textId = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        EditText searchPlate = (EditText) searchView.findViewById(textId);
+        searchPlate.setTextColor(Color.WHITE);
+
+        int closeId = searchView.getContext().getResources().getIdentifier("android:id/search_close_btn", null, null);
+        ImageView closeButton = (ImageView) searchView.findViewById(closeId);
+        closeButton.setImageResource(R.drawable.ic_dgn_cancel);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_search) {
+            final SearchView searchView = (SearchView) item.getActionView();
+            searchView.setIconifiedByDefault(false);
+            searchView.requestFocus();
+
+            int hintId = searchView.getContext().getResources().getIdentifier("android:id/search_mag_icon", null, null);
+            final ImageView hintView = (ImageView) searchView.findViewById(hintId);
+            hintView.setVisibility(View.INVISIBLE);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
