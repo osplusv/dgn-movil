@@ -56,7 +56,7 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
                 true,
                 NormasEntry.TABLE_NAME,
                 null,
-                NormasEntry.COLUMN_CLAVE + " LIKE ? or " + NormasEntry.COLUMN_TITULO + " LIKE ? LIMIT 7",
+                NormasEntry.COLUMN_CLAVE + " LIKE ? or " + NormasEntry.COLUMN_TITULO + " LIKE ? LIMIT 10",
                 new String[] { val, val },
                 null,
                 null,
@@ -107,7 +107,7 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
         Cursor cursor = mContext.getContentResolver().query(
                 ProductosEntry.CONTENT_URI,
                 null,
-                ProductosEntry.COLUMN_NOM + " LIKE ?",
+                ProductosEntry.COLUMN_NOM + " LIKE ? LIMIT 10",
                 new String[] { val },
                 null
         );
@@ -160,7 +160,7 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
                 true,
                 RaeEntry.TABLE_NAME,
                 null,
-                RaeEntry.COLUMN_NOM + " LIKE ?",
+                RaeEntry.COLUMN_NOM + " LIKE ? LIMIT 10",
                 new String[] { val },
                 null,
                 null,
