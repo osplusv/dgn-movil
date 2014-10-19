@@ -6,7 +6,6 @@ package com.oracle.dgnmovil.app.data;
 
 import android.content.ContentUris;
 import android.net.Uri;
-import android.provider.BaseColumns;
 
 /**
  * Defines table and column names for the dgn database.
@@ -22,11 +21,11 @@ public class DgnContract {
     public static final String PATH_NORMA = "norma";
     public static final String PATH_PRODUCTO = "producto";
     public static final String PATH_RAE = "rae";
-    public static final String PATH_DEPENDECIA = "dependencia";
-    public static final String PATH_ORGANIZMO = "organizmo";
+    public static final String PATH_ORGANISMO = "organismo";
+    public static final String PATH_PROD_RAE = "prod_rae";
 
     /* Inner class that defines the table contents of the normas table */
-    public static final class NormasEntry implements BaseColumns {
+    public static final class NormasEntry {
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_NORMA).build();
 
@@ -38,14 +37,15 @@ public class DgnContract {
 
         public static final String TABLE_NAME = "normas";
 
+        public static final String _ID = "id";
+
         // Column with the foreign key into the productos table.
         public static final String COLUMN_PROD_KEY = "producto_id";
         // Column with the foreign key into the rae table.
         public static final String COLUMN_RAE_KEY = "rae_id";
-        // Column with the foreign key into the dependencias table.
-        public static final String COLUMN_DEP_KEY = "dependencia_id";
-        // Column with the foreign key into the organizmos table.
-        public static final String COLUMN_ORG_KEY = "organizmo_id";
+
+        // Column with the foreign key into the organismos table.
+        public static final String COLUMN_ORG_KEY = "organismo_id";
 
         // Column with the norma Clave
         public static final String COLUMN_CLAVE = "clave";
@@ -71,6 +71,9 @@ public class DgnContract {
         // Column with the norma Documento
         public static final String COLUMN_DOC = "documento";
 
+        //
+        public static final String COLUMN_FAV = "favorito";
+
         // Uri to build a norma based on the Id
         public static Uri buildNormaUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
@@ -93,7 +96,7 @@ public class DgnContract {
     }
 
     /* Inner class that defines the table contents of the productos table */
-    public static final class ProductosEntry implements BaseColumns {
+    public static final class ProductosEntry {
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_PRODUCTO).build();
 
@@ -105,6 +108,8 @@ public class DgnContract {
 
         public static final String TABLE_NAME = "productos";
 
+        public static final String _ID = "id";
+
         // Column with the foreign key into the productos table.
         public static final String COLUMN_NOM = "nombre";
 
@@ -112,10 +117,15 @@ public class DgnContract {
         public static Uri buildProductoUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
+
+        // Returns the Element from Uri
+        public static String getElementFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
     }
 
     /* Inner class that defines the table contents of the productos table */
-    public static final class RaeEntry implements BaseColumns {
+    public static final class RaeEntry {
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_RAE).build();
 
@@ -127,8 +137,12 @@ public class DgnContract {
 
         public static final String TABLE_NAME = "rae";
 
+        public static final String _ID = "id";
+
         // Column with the foreign key into the productos table.
         public static final String COLUMN_NOM = "nombre";
+
+        public static final String COLUMN_VISITADO = "visitado";
 
         // Uri to build a rae based on the Id
         public static Uri buildRaeUri(long id) {
@@ -136,47 +150,68 @@ public class DgnContract {
         }
     }
 
-    /* Inner class that defines the table contents of the dependencias table */
-    public static final class DependenciasEntry implements BaseColumns {
+    /* Inner class that defines the table contents of the organismos table */
+    public static final class OrganismosEntry {
         public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_DEPENDECIA).build();
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_ORGANISMO).build();
 
         public static final String CONTENT_TYPE =
-                "vdn.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_DEPENDECIA;
+                "vdn.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_ORGANISMO;
 
         public static final String CONTENT_ITEM_TYPE =
-                "vdn.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_DEPENDECIA;
+                "vdn.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_ORGANISMO;
 
-        public static final String TABLE_NAME = "dependencias";
-
-        // Column with the foreign key into the productos table.
-        public static final String COLUMN_NOM = "nombre";
-
-        // Uri to build a dependencia based on the Id
-        public static Uri buildDependenciaUri(long id) {
-            return ContentUris.withAppendedId(CONTENT_URI, id);
-        }
-    }
-
-    /* Inner class that defines the table contents of the organizmos table */
-    public static final class OrganizmosEntry implements BaseColumns {
-        public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_ORGANIZMO).build();
-
-        public static final String CONTENT_TYPE =
-                "vdn.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_ORGANIZMO;
-
-        public static final String CONTENT_ITEM_TYPE =
-                "vdn.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_ORGANIZMO;
+        public static final String _ID = "id";
 
         public static final String TABLE_NAME = "organizmos";
 
         // Column with the foreign key into the productos table.
         public static final String COLUMN_NOM = "nombre";
 
-        // Uri to build a organizmo based on the Id
-        public static Uri buildOrganizmoUri(long id) {
+        // Uri to build a organismo based on the Id
+        public static Uri buildOrganismoUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
     }
+
+    /* Inner class that defines the table contents of the organismos table */
+    public static final class ProdRaeEntry {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_PROD_RAE).build();
+
+        public static final String CONTENT_TYPE =
+                "vdn.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_PROD_RAE;
+
+        public static final String CONTENT_ITEM_TYPE =
+                "vdn.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_PROD_RAE;
+
+        public static final String _ID = "id";
+
+        public static final String TABLE_NAME = "productos_rae";
+
+        // Column with the foreign key into the productos table.
+        public static final String COLUMN_PROD_KEY = "producto_id";
+
+        // Column with the foreign key into the productos table.
+        public static final String COLUMN_RAE_KEY = "rae_id";
+
+        // Column with the foreign key into the productos table.
+        public static final String COLUMN_IMG = "img";
+
+        // Uri to build a organismo based on the Id
+        public static Uri buildOrganismoUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        // Returns the Element from Uri
+        public static String getElementFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+
+        // Uri to build a norma based on an Element and Value
+        public static Uri buildProductoByRae(String id) {
+            return CONTENT_URI.buildUpon().appendPath(id).build();
+        }
+    }
+
 }

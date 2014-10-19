@@ -18,18 +18,22 @@ public class DgnProvider extends ContentProvider {
     private static final int NORMA_BY_ELEMENT = 101;
     private static final int PRODUCTO = 300;
     private static final int PRODUCTO_ID = 301;
+
     private static final int RAE = 400;
     private static final int RAE_ID = 401;
-    private static final int DEPENDENCIA = 500;
-    private static final int DEPENDENCIA_ID = 501;
-    private static final int ORGANIZMO = 600;
-    private static final int ORGANIZMO_ID = 601;
+    private static final int ORGANISMO = 600;
+    private static final int ORGANISMO_ID = 601;
+    private static final int PROD_ID = 701;
+
+    private static final int PRODUCTO_ID_AND_RAE = 800;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private static final SQLiteQueryBuilder sNormaByProductoQueryBuilder;
     private static final SQLiteQueryBuilder sNormaByRaeQueryBuilder;
-    private static final SQLiteQueryBuilder sNormaByDependenciasQueryBuilder;
-    private static final SQLiteQueryBuilder sNormaByOrganizmosQueryBuilder;
+    private static final SQLiteQueryBuilder sNormaByOrganismosQueryBuilder;
+
+    private static final SQLiteQueryBuilder sRAE_IdByProductoQueryBuilder;
+
 
     private DgnDbHelper mDbHelper;
 
@@ -56,27 +60,27 @@ public class DgnProvider extends ContentProvider {
                         "." + DgnContract.RaeEntry._ID
         );
 
-        // Dependecias query
-        sNormaByDependenciasQueryBuilder = new SQLiteQueryBuilder();
-        sNormaByDependenciasQueryBuilder.setTables(
+        // Organizmos query
+        sNormaByOrganismosQueryBuilder = new SQLiteQueryBuilder();
+        sNormaByOrganismosQueryBuilder.setTables(
                 DgnContract.NormasEntry.TABLE_NAME + " INNER JOIN " +
-                        DgnContract.DependenciasEntry.TABLE_NAME +
-                        " ON " + DgnContract.DependenciasEntry.TABLE_NAME +
+                        DgnContract.OrganismosEntry.TABLE_NAME +
+                        " ON " + DgnContract.OrganismosEntry.TABLE_NAME +
                         "." + DgnContract.NormasEntry.COLUMN_PROD_KEY +
-                        " = " + DgnContract.DependenciasEntry.TABLE_NAME +
-                        "." + DgnContract.DependenciasEntry._ID
+                        " = " + DgnContract.OrganismosEntry.TABLE_NAME +
+                        "." + DgnContract.OrganismosEntry._ID
         );
 
-        // Organizmos query
-        sNormaByOrganizmosQueryBuilder = new SQLiteQueryBuilder();
-        sNormaByDependenciasQueryBuilder.setTables(
-                DgnContract.NormasEntry.TABLE_NAME + " INNER JOIN " +
-                        DgnContract.OrganizmosEntry.TABLE_NAME +
-                        " ON " + DgnContract.OrganizmosEntry.TABLE_NAME +
-                        "." + DgnContract.NormasEntry.COLUMN_PROD_KEY +
-                        " = " + DgnContract.OrganizmosEntry.TABLE_NAME +
-                        "." + DgnContract.OrganizmosEntry._ID
+        sRAE_IdByProductoQueryBuilder = new SQLiteQueryBuilder();
+        sRAE_IdByProductoQueryBuilder.setTables(
+                DgnContract.ProductosEntry.TABLE_NAME + " INNER JOIN " +
+                        DgnContract.ProdRaeEntry.TABLE_NAME +
+                        " ON " + DgnContract.ProductosEntry.TABLE_NAME +
+                        "." + DgnContract.ProductosEntry._ID +
+                        " = " + DgnContract.ProdRaeEntry.TABLE_NAME +
+                        "." + DgnContract.ProdRaeEntry.COLUMN_PROD_KEY
         );
+
     }
 
     private static final String sProductoSelection = DgnContract.ProductosEntry.TABLE_NAME +
@@ -85,11 +89,11 @@ public class DgnProvider extends ContentProvider {
     private static final String sRaeSelection = DgnContract.RaeEntry.TABLE_NAME +
             "." + DgnContract.RaeEntry.COLUMN_NOM + " = ? ";
 
-    private static final String sDependeciasSelection = DgnContract.DependenciasEntry.TABLE_NAME +
-            "." + DgnContract.DependenciasEntry.COLUMN_NOM + " = ? ";
+    private static final String sOrganismosSelection = DgnContract.OrganismosEntry.TABLE_NAME +
+            "." + DgnContract.OrganismosEntry.COLUMN_NOM + " = ? ";
 
-    private static final String sOrganizmosSelection = DgnContract.OrganizmosEntry.TABLE_NAME +
-            "." + DgnContract.OrganizmosEntry.COLUMN_NOM + " = ? ";
+    private static final String sRaeIdSelection = DgnContract.ProdRaeEntry.TABLE_NAME +
+            "." + DgnContract.ProdRaeEntry.COLUMN_PROD_KEY + " = ? ";
 
     private Cursor getNormaByElement(Uri uri, String[] projection, String sortOrder) {
         String element = DgnContract.NormasEntry.getElementFromUri(uri);
@@ -102,16 +106,31 @@ public class DgnProvider extends ContentProvider {
             selection = sProductoSelection;
         } else if (element.equals("rae")) {
             selection = sRaeSelection;
-        } else if (element.equals("dependecia")) {
-            selection = sDependeciasSelection;
         } else {
-            selection = sOrganizmosSelection;
+            selection = sOrganismosSelection;
         }
 
         return sNormaByProductoQueryBuilder.query(
                 mDbHelper.getReadableDatabase(),
                 projection,
                 selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder
+        );
+    }
+
+    private Cursor getRaeIdByProducto(Uri uri, String[] projection, String sortOrder) {
+        String element = DgnContract.ProdRaeEntry.getElementFromUri(uri);
+
+        String[] selectionArgs = new String[] { element };
+        String selection = null;
+
+        return sNormaByProductoQueryBuilder.query(
+                mDbHelper.getReadableDatabase(),
+                projection,
+                sRaeIdSelection,
                 selectionArgs,
                 null,
                 null,
@@ -133,14 +152,15 @@ public class DgnProvider extends ContentProvider {
         matcher.addURI(authority, DgnContract.PATH_PRODUCTO, PRODUCTO);
         matcher.addURI(authority, DgnContract.PATH_PRODUCTO + "/#", PRODUCTO_ID);
 
+
         matcher.addURI(authority, DgnContract.PATH_RAE, RAE);
         matcher.addURI(authority, DgnContract.PATH_RAE + "/#", RAE_ID);
 
-        matcher.addURI(authority, DgnContract.PATH_DEPENDECIA, DEPENDENCIA);
-        matcher.addURI(authority, DgnContract.PATH_DEPENDECIA + "/#", DEPENDENCIA_ID);
+        matcher.addURI(authority, DgnContract.PATH_ORGANISMO, ORGANISMO);
+        matcher.addURI(authority, DgnContract.PATH_ORGANISMO + "/#", ORGANISMO_ID);
 
-        matcher.addURI(authority, DgnContract.PATH_ORGANIZMO, ORGANIZMO);
-        matcher.addURI(authority, DgnContract.PATH_ORGANIZMO + "/#", ORGANIZMO_ID);
+        matcher.addURI(authority, DgnContract.PATH_PROD_RAE + "/#", PROD_ID);
+        matcher.addURI(authority, DgnContract.PATH_PROD_RAE + "/*", PRODUCTO_ID_AND_RAE);
 
         return matcher;
     }
@@ -204,6 +224,11 @@ public class DgnProvider extends ContentProvider {
                 break;
             }
 
+            case PRODUCTO_ID_AND_RAE: {
+                retCursor = getRaeIdByProducto(uri, projection, sortOrder);
+                break;
+            }
+
             case RAE: {
                 retCursor = mDbHelper.getReadableDatabase().query(
                         DgnContract.RaeEntry.TABLE_NAME,
@@ -230,9 +255,9 @@ public class DgnProvider extends ContentProvider {
                 break;
             }
 
-            case DEPENDENCIA: {
+            case ORGANISMO: {
                 retCursor = mDbHelper.getReadableDatabase().query(
-                        DgnContract.DependenciasEntry.TABLE_NAME,
+                        DgnContract.OrganismosEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -243,11 +268,11 @@ public class DgnProvider extends ContentProvider {
                 break;
             }
 
-            case DEPENDENCIA_ID: {
+            case ORGANISMO_ID: {
                 retCursor = mDbHelper.getReadableDatabase().query(
-                        DgnContract.DependenciasEntry.TABLE_NAME,
+                        DgnContract.OrganismosEntry.TABLE_NAME,
                         projection,
-                        DgnContract.DependenciasEntry._ID + " = '" + ContentUris.parseId(uri) + "'",
+                        DgnContract.OrganismosEntry._ID + " = '" + ContentUris.parseId(uri) + "'",
                         null,
                         null,
                         null,
@@ -256,24 +281,11 @@ public class DgnProvider extends ContentProvider {
                 break;
             }
 
-            case ORGANIZMO: {
+            case PROD_ID: {
                 retCursor = mDbHelper.getReadableDatabase().query(
-                        DgnContract.OrganizmosEntry.TABLE_NAME,
+                        DgnContract.ProdRaeEntry.TABLE_NAME,
                         projection,
-                        selection,
-                        selectionArgs,
-                        null,
-                        null,
-                        sortOrder
-                );
-                break;
-            }
-
-            case ORGANIZMO_ID: {
-                retCursor = mDbHelper.getReadableDatabase().query(
-                        DgnContract.OrganizmosEntry.TABLE_NAME,
-                        projection,
-                        DgnContract.OrganizmosEntry._ID + " = '" + ContentUris.parseId(uri) + "'",
+                        DgnContract.ProdRaeEntry.COLUMN_PROD_KEY + " = '" + ContentUris.parseId(uri) + "'",
                         null,
                         null,
                         null,
@@ -305,14 +317,14 @@ public class DgnProvider extends ContentProvider {
                 return DgnContract.RaeEntry.CONTENT_TYPE;
             case RAE_ID:
                 return DgnContract.RaeEntry.CONTENT_ITEM_TYPE;
-            case DEPENDENCIA:
-                return DgnContract.DependenciasEntry.CONTENT_TYPE;
-            case DEPENDENCIA_ID:
-                return DgnContract.DependenciasEntry.CONTENT_ITEM_TYPE;
-            case ORGANIZMO:
-                return DgnContract.OrganizmosEntry.CONTENT_TYPE;
-            case ORGANIZMO_ID:
-                return DgnContract.OrganizmosEntry.CONTENT_ITEM_TYPE;
+            case ORGANISMO:
+                return DgnContract.OrganismosEntry.CONTENT_TYPE;
+            case ORGANISMO_ID:
+                return DgnContract.OrganismosEntry.CONTENT_ITEM_TYPE;
+            case PROD_ID:
+                return DgnContract.OrganismosEntry.CONTENT_TYPE;
+            case PRODUCTO_ID_AND_RAE:
+                return DgnContract.ProdRaeEntry.CONTENT_TYPE;
             default:
                 throw new UnsupportedOperationException("unknown uri: " + uri);
         }
@@ -354,19 +366,10 @@ public class DgnProvider extends ContentProvider {
                 }
                 break;
             }
-            case DEPENDENCIA: {
-                long _id = db.insert(DgnContract.DependenciasEntry.TABLE_NAME, null, values);
+            case ORGANISMO: {
+                long _id = db.insert(DgnContract.OrganismosEntry.TABLE_NAME, null, values);
                 if (_id > 0) {
-                    returnUri = DgnContract.DependenciasEntry.buildDependenciaUri(_id);
-                } else {
-                    throw new SQLException("Failed to insert row into " + uri);
-                }
-                break;
-            }
-            case ORGANIZMO: {
-                long _id = db.insert(DgnContract.OrganizmosEntry.TABLE_NAME, null, values);
-                if (_id > 0) {
-                    returnUri = DgnContract.OrganizmosEntry.buildOrganizmoUri(_id);
+                    returnUri = DgnContract.OrganismosEntry.buildOrganismoUri(_id);
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
                 }
@@ -399,13 +402,9 @@ public class DgnProvider extends ContentProvider {
                 rowsDeleted = db.delete(
                         DgnContract.RaeEntry.TABLE_NAME, selection, selectionArgs);
                 break;
-            case DEPENDENCIA:
+            case ORGANISMO:
                 rowsDeleted = db.delete(
-                        DgnContract.DependenciasEntry.TABLE_NAME, selection, selectionArgs);
-                break;
-            case ORGANIZMO:
-                rowsDeleted = db.delete(
-                        DgnContract.OrganizmosEntry.TABLE_NAME, selection, selectionArgs);
+                        DgnContract.OrganismosEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -436,12 +435,8 @@ public class DgnProvider extends ContentProvider {
                 rowsUpdated =  db.update(DgnContract.RaeEntry.TABLE_NAME, values, selection,
                         selectionArgs);
                 break;
-            case DEPENDENCIA:
-                rowsUpdated =  db.update(DgnContract.DependenciasEntry.TABLE_NAME, values, selection,
-                        selectionArgs);
-                break;
-            case ORGANIZMO:
-                rowsUpdated =  db.update(DgnContract.OrganizmosEntry.TABLE_NAME, values, selection,
+            case ORGANISMO:
+                rowsUpdated =  db.update(DgnContract.OrganismosEntry.TABLE_NAME, values, selection,
                         selectionArgs);
                 break;
             default:
@@ -509,29 +504,12 @@ public class DgnProvider extends ContentProvider {
                 getContext().getContentResolver().notifyChange(uri, null);
                 return returnCount;
             }
-            case DEPENDENCIA: {
+            case ORGANISMO: {
                 db.beginTransaction();
                 int returnCount = 0;
                 try {
                     for (ContentValues value : values) {
-                        long _id = db.insert(DgnContract.DependenciasEntry.TABLE_NAME, null, value);
-                        if (_id != -1) {
-                            returnCount++;
-                        }
-                    }
-                    db.setTransactionSuccessful();
-                } finally {
-                    db.endTransaction();
-                }
-                getContext().getContentResolver().notifyChange(uri, null);
-                return returnCount;
-            }
-            case ORGANIZMO: {
-                db.beginTransaction();
-                int returnCount = 0;
-                try {
-                    for (ContentValues value : values) {
-                        long _id = db.insert(DgnContract.OrganizmosEntry.TABLE_NAME, null, value);
+                        long _id = db.insert(DgnContract.OrganismosEntry.TABLE_NAME, null, value);
                         if (_id != -1) {
                             returnCount++;
                         }
