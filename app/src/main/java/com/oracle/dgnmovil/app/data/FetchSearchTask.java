@@ -57,7 +57,7 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
                 true,
                 NormasEntry.TABLE_NAME,
                 null,
-                NormasEntry.COLUMN_CLAVE + " LIKE ? or " + NormasEntry.COLUMN_TITULO + " LIKE ?",
+                NormasEntry.COLUMN_CLAVE + " LIKE ? or " + NormasEntry.COLUMN_TITULO + " LIKE ? LIMIT 7",
                 new String[] { val, val },
                 null,
                 null,
