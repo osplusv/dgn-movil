@@ -37,6 +37,7 @@ public class SearchActivity extends ActionBarActivity {
     LinearLayout productsRoot;
     LinearLayout raesRoot;
     LinearLayout normsRoot;
+    ImageView empty;
 
     long millis;
 
@@ -69,8 +70,11 @@ public class SearchActivity extends ActionBarActivity {
         productsRoot = (LinearLayout) findViewById(R.id.linear_products);
         raesRoot = (LinearLayout) findViewById(R.id.linear_raes);
         normsRoot = (LinearLayout) findViewById(R.id.linear_norms);
+        empty = (ImageView) findViewById(R.id.search_empty);
 
         root.removeAllViews();
+
+        root.addView(empty);
 
         tf = Typeface.createFromAsset(getAssets(), "font/MavenPro-Bold.ttf");
     }
@@ -203,24 +207,26 @@ public class SearchActivity extends ActionBarActivity {
             public boolean onQueryTextChange(final String query) {
                 final long currMillis = System.currentTimeMillis();
 
-                if(!query.isEmpty()) {
-                    new android.os.Handler().postDelayed(
-                            new Runnable() {
-                                public void run() {
-                                    if (currMillis >= millis){
-                                        root.removeAllViews();
-                                        productsRoot.removeAllViews();
-                                        raesRoot.removeAllViews();
-                                        normsRoot.removeAllViews();
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                if (currMillis >= millis) {
+                                    root.removeAllViews();
+                                    productsRoot.removeAllViews();
+                                    raesRoot.removeAllViews();
+                                    normsRoot.removeAllViews();
+                                    if (!query.isEmpty()) {
                                         root.addView(progressBar);
                                         new SearchTask().execute(query);
+                                    } else
+                                        root.addView(empty);
                                     }
                                 }
-                            },
-                            300);
+                        },
+                        300);
 
-                    millis = currMillis;
-                }
+                millis = currMillis;
+
 
                 return false;
             }
