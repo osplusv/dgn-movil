@@ -87,4 +87,30 @@ public class DbUtil {
         }
         return favoritos;
     }
+
+    public String getRae(long norma_id) {
+        String nombre = null;
+        String query = "select r.nombre from rae r INNER JOIN normas n ON n.rae_id = r.id WHERE n.id = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[] { norma_id + "" });
+
+        if (cursor.moveToFirst()) {
+            int nombreIndex = cursor.getColumnIndex(DgnContract.RaeEntry.COLUMN_NOM);
+            nombre = cursor.getString(nombreIndex);
+        }
+        return nombre;
+    }
+
+    public String getProducto(long norma_id) {
+        String nombre = null;
+        String query = "select p.nombre from productos p INNER JOIN normas n ON n.producto_id = p.id WHERE n.id = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[] { norma_id + "" });
+
+        if (cursor.moveToFirst()) {
+            int nombreIndex = cursor.getColumnIndex(DgnContract.RaeEntry.COLUMN_NOM);
+            nombre = cursor.getString(nombreIndex);
+        }
+        return nombre;
+    }
 }
