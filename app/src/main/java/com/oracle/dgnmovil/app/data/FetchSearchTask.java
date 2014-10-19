@@ -67,6 +67,10 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
         while (cursor.moveToNext()) {
             Norma norma = new Norma();
 
+            int idIndex = cursor.getColumnIndex(NormasEntry._ID);
+            long id = cursor.getLong(idIndex);
+            norma.setId(id);
+
             int claveIndex = cursor.getColumnIndex(NormasEntry.COLUMN_CLAVE);
             String clave = cursor.getString(claveIndex);
             norma.setClave(clave);
@@ -75,12 +79,37 @@ public class FetchSearchTask extends AsyncTask<String, Void, Map<String, List<Ob
             String titulo = cursor.getString(tituloIndex);
             norma.setTitulo(titulo);
 
+            int publicacionIndex = cursor.getColumnIndex(NormasEntry.COLUMN_PUB);
+            String publicacion = cursor.getString(publicacionIndex);
+            norma.setPublicacion(publicacion);
+
             int vigorIndex = cursor.getColumnIndex(NormasEntry.COLUMN_ACT);
             String vigor = cursor.getString(vigorIndex);
             norma.setFecha(vigor);
 
+            int tipoIndex = cursor.getColumnIndex(NormasEntry.COLUMN_TIPO);
+            String tipo = cursor.getString(tipoIndex);
+            norma.setTipo(tipo);
+
+            int norma_internacional_Index = cursor.getColumnIndex(NormasEntry.COLUMN_INTER);
+            String norma_internacional = cursor.getString(norma_internacional_Index);
+            norma.setNorma_internacional(norma_internacional);
+
+            int concordanciaIndex = cursor.getColumnIndex(NormasEntry.COLUMN_CONC);
+            String concordancia = cursor.getString(concordanciaIndex);
+            norma.setConcordancia(concordancia);
+
+            int documentoIndex = cursor.getColumnIndex(NormasEntry.COLUMN_DOC);
+            String documento = cursor.getString(documentoIndex);
+            norma.setDocumento(documento);
+
+            int favoritoIndex = cursor.getColumnIndex(NormasEntry.COLUMN_FAV);
+            int favorito = cursor.getInt(favoritoIndex);
+            norma.setFavorito(favorito);
+
             int raeIndex = cursor.getColumnIndex(NormasEntry.COLUMN_RAE_KEY);
             long rae_id = cursor.getInt(raeIndex);
+
 
             Cursor c2 = mContext.getContentResolver().query(
                     RaeEntry.buildRaeUri((rae_id)),
