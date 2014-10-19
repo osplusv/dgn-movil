@@ -139,7 +139,7 @@ public class SearchActivity extends ActionBarActivity {
                 LinearLayout raeItem = (LinearLayout) li.inflate(R.layout.search_rae, raesRoot, false);
 
                 ImageView raeImg = (ImageView) raeItem.findViewById(R.id.search_rae_img);
-                String name = rae.getImg().toLowerCase().replaceAll(" ", "_").replaceAll(",", "");
+                String name = rae.getNombre().toLowerCase().replaceAll(" ", "_").replaceAll(",", "");
                 int resID = getResources().getIdentifier(name, "drawable",  getPackageName());
                 if(resID == 0)
                     resID = R.drawable.ic_dgn_ico00;
