@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.oracle.dgnmovil.app.data.FetchSearchTask;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -76,14 +77,13 @@ public class MainActivity extends ActionBarActivity {
         }
 
         private void updateNormas() {
-            FetchFilesTask fetchTask = new FetchFilesTask(getActivity());
-            fetchTask.execute();
+            FetchSearchTask fetchSearch = new FetchSearchTask(getActivity());
+            fetchSearch.execute("AGU");
         }
 
         @Override
         public void onStart() {
             super.onStart();
-            //updateNormas();
         }
 
         @Override
